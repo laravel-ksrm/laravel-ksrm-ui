@@ -22,3 +22,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Add the bootstrap-vue 
+npm install --save bootstrap-vue 
+### Install vue-router 
+npm install vue-router

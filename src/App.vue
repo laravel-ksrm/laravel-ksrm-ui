@@ -1,17 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="app">
+    <header>
+      <div id="nav-bar">
+         <app-nav></app-nav>
+      </div>
+      <router-view></router-view>
+    </header>
+    <main class="container">
+      <div id="footer">
+      <p>Copyright © 2021 KSRMCE. All rights Reserved</p>
+      </div>
+    </main>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import HelloWorld from './components/HelloWorld.vue'
+import AppNav from './components/AppNav'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // HelloWorld,
+    AppNav
   }
 }
 </script>
@@ -22,7 +31,20 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
+}
+
+#footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%;
+   background:#2c3e50;
+   color: whitesmoke;
+}
+#nav-bar{
+  background-color: #2c3e50;
+  color: white;
 }
 </style>
