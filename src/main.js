@@ -8,11 +8,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'jquery/dist/jquery.min.js'
-
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
 import VueRouter from 'vue-router'
+
+
 
 import Marks from './components/Marks'
 import Notifications from './components/Notifications'
@@ -22,6 +23,7 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import Departments from './components/Departments'
 import Syllabus from './components/Syllabus'
+import Results from './components/Results'
 import BatchMates from './components/BatchMates'
 // import some global styles
 // import './styles/style.scss'
@@ -37,9 +39,8 @@ const routes = [
   { path: '/Profile',component: Profile },
   { path: '/departments', component: Departments},
   { path: '/syllabus', component: Syllabus},
-  { path: '/batchmates', component: BatchMates}
-
-  
+  { path: '/batchmates', component: BatchMates},
+  { path: '/results', component: Results},
 
 ]
 

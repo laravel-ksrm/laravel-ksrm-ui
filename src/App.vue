@@ -7,10 +7,12 @@
       <router-view></router-view>
     </header>
     <main class="container">
-      <div id="footer">
-      <p>Copyright © 2021 KSRMCE. All rights Reserved</p>
-      </div>
     </main>
+      <div>
+        <div id="footer">      
+          <p>Copyright © 2021 KSRMCE. All rights Reserved</p>
+        </div>
+      </div>
   </div>
 </template>
 <script>
@@ -20,7 +22,7 @@ export default {
   name: 'App',
   components: {
     // HelloWorld,
-    AppNav
+    AppNav,
   }
 }
 </script>
@@ -35,11 +37,12 @@ export default {
 }
 
 #footer {
-   position:fixed;
+  flex-shrink: 0;
+  position: absolute;
    left:0px;
+   right: 0px;
    bottom:0px;
-   height:30px;
-   width:100%;
+   height:40px;
    background:#2c3e50;
    color: whitesmoke;
 }
