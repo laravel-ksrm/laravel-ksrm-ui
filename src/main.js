@@ -13,7 +13,9 @@ Vue.use(BootstrapVueIcons)
 
 import VueRouter from 'vue-router'
 
-
+import axios from 'axios'
+window.axios = axios
+axios.defaults.baseURL = 'http://localhost:8080'
 
 import Marks from './components/Marks'
 import Notifications from './components/Notifications'
@@ -41,7 +43,6 @@ const routes = [
   { path: '/syllabus', component: Syllabus},
   { path: '/batchmates', component: BatchMates},
   { path: '/results', component: Results},
-
 ]
 
 // Create the router instance and pass the `routes` option

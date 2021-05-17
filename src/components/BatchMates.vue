@@ -13,10 +13,9 @@
       show-empty
       responsive="true"
     ></b-table>
-
   </div>
   <b-pagination
-      class="pagination"
+      class="pagination col-12 d-flex align-items-end"
       v-model="currentPage"
       :total-rows="rows"
       :per-page="perPage"
@@ -24,7 +23,6 @@
       align="right"
     ></b-pagination>
   </div>
-  
 </template>
 
 <script>
@@ -39,10 +37,14 @@ export default {
         fields: [
           { key: 'regdno'},
           { key: 'full_name'},
-          { key: 'email'}
+          { key: 'email'},
+          { key: 'phone'},{
+            key: 'residency'},
+            { key: 'join_year'
+            }
         ],
         items: [
-          {"id":"1","regdno":"189Y1A0101","full_name":"ADDA SREENIVASULU","email":"189y1a0101@ksrmce.ac.in","join_year":"2018","phone":"8317545116","is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0101","created_at":null,"updated_at":null},
+{"id":"1","regdno":"189Y1A0101","full_name":"ADDA SREENIVASULU","email":"189y1a0101@ksrmce.ac.in","join_year":"2018","phone":"8317545116","is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0101","created_at":null,"updated_at":null},
 {"id":"2","regdno":"189Y1A0102","full_name":"ADHIKARI NAVEENKUMAR","email":"189y1a0102@ksrmce.ac.in","join_year":"2018","phone":"8179742439","is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0102","created_at":null,"updated_at":null},
 {"id":"3","regdno":"189Y1A0103","full_name":"ADIMULAM LEELA KRISHNA YADAV","email":"189y1a0103@ksrmce.ac.in","join_year":"2018","phone":null,"is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0103","created_at":null,"updated_at":null},
 {"id":"4","regdno":"189Y1A0104","full_name":"ARIKELA RAGHAVENDRA REDDY","email":"189y1a0104@ksrmce.ac.in","join_year":"2018","phone":"7731053009","is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0104","created_at":null,"updated_at":null},
@@ -137,55 +139,7 @@ export default {
 {"id":"93","regdno":"189Y1A0195","full_name":"SEELAM SWARNA LATHA","email":"189y1a0195@ksrmce.ac.in","join_year":"2018","phone":"7680067271","is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0195","created_at":null,"updated_at":null},
 {"id":"94","regdno":"189Y1A0197","full_name":"HUSSAIN SHAIK ADIL","email":"189y1a0197@ksrmce.ac.in","join_year":"2018","phone":"6281793856","is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0197","created_at":null,"updated_at":null},
 {"id":"95","regdno":"189Y1A0198","full_name":"SHAIK AFROZ","email":"189y1a0198@ksrmce.ac.in","join_year":"2018","phone":"7780653759","is_lateral_entry":"0","social_category":"OC","admission_category":"CONVENER","residency":"DAYS","gender":"OTHER","specialization_id":"1","regulation_id":"R18UG","password":"189Y1A0198","created_at":null,"updated_at":null},
-
-        ],
-        itemsq:[
-          { id: 1, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 2, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 3, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 4, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 5, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 6, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 7, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 8, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 9, first_name: 'Pearl', last_name: 'Slaghoople' },
-          { id: 10, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 11, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 12, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 13, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 14, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 15, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 16, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 17, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 18, first_name: 'Pearl', last_name: 'Slaghoople' },
-          { id: 19, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 20, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 21, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 22, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 23, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 24, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 25, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 26, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 27, first_name: 'Pearl', last_name: 'Slaghoople' },
-          { id: 28, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 29, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 30, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 31, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 32, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 33, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 34, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 35, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 36, first_name: 'Pearl', last_name: 'Slaghoople' },
-          { id: 37, first_name: 'Fred', last_name: 'Flintstone' },
-          { id: 38, first_name: 'Wilma', last_name: 'Flintstone' },
-          { id: 39, first_name: 'Barney', last_name: 'Rubble' },
-          { id: 40, first_name: 'Betty', last_name: 'Rubble' },
-          { id: 41, first_name: 'Pebbles', last_name: 'Flintstone' },
-          { id: 42, first_name: 'Bamm Bamm', last_name: 'Rubble' },
-          { id: 43, first_name: 'The Great', last_name: 'Gazzoo' },
-          { id: 44, first_name: 'Rockhead', last_name: 'Slate' },
-          { id: 45, first_name: 'Pearl', last_name: 'Slaghoople' }
-        ]
+],
       }
     },
     computed: {
@@ -199,17 +153,17 @@ export default {
 #batchmates{
   padding-top: 2px;
   background-color: white;
+  min-height: 100vh;
+  position: relative;
 }
 .pagination{
   right: 20px;
+  margin: auto;
 }
 .table{
   max-width: 80%;
   min-width: 300px;
   margin-left: 10%;
   margin-right: 10%;
-}
-#my-table{
-  
 }
 </style>

@@ -97,14 +97,15 @@
           to="notifications"
           class="nav-link"
           exact
-        ><img src="https://icon-library.com/images/notification-icon-png/notification-icon-png-12.jpg" style="border-radius: 80%;
+        ><img src="../assets/images/notification.jpg" style="border-radius: 80%;
     width: 35px;
     height: 30px; "><sup>1000</sup>
                 </router-link></a>
           </li>
           <li class="nav-item avatar dropdown">
             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="avatar image" style="border-radius: 80%;
+              <img src="../assets/images/avatar.png" alt="avatar image" style="border-radius: 80%;
+
     width: 35px;
     height: 30px; ">
             </a>
