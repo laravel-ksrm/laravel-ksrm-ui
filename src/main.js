@@ -14,8 +14,9 @@ Vue.use(BootstrapVueIcons)
 import VueRouter from 'vue-router'
 
 import axios from 'axios'
-window.axios = axios
-axios.defaults.baseURL = 'http://localhost:8080'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios,axios)
+
 
 import Marks from './components/Marks'
 import Notifications from './components/Notifications'

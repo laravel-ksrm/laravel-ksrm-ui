@@ -19,6 +19,7 @@
 import AppNav from './components/AppNav'
 export default {
   name: 'App',
+
   components: {
     // HelloWorld,
     AppNav,
@@ -40,7 +41,7 @@ export default {
 #footer {
   margin-top: auto;
   flex-shrink: 0;
-  position: absolute;
+  position:fixed;
   left: 0px;
   right: 0px;
   bottom:0px;

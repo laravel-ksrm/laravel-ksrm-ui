@@ -99,7 +99,7 @@
           exact
         ><img src="../assets/images/notification.jpg" style="border-radius: 80%;
     width: 35px;
-    height: 30px; "><sup>1000</sup>
+    height: 30px; "><sup> {{ notification}} </sup>
                 </router-link></a>
           </li>
           <li class="nav-item avatar dropdown">
@@ -138,7 +138,11 @@
 </template>
 <script>
 export default {
-
+  data(){
+    return{
+      notification: 10
+    }
+  }
 }
 </script>
 <style scoped>
