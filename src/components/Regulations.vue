@@ -50,7 +50,10 @@
       
       <b-tabs v-model="tabIndex" content-class="mt-3" fill>
     <b-tab title="REGULATIONS" active :title-link-class="linkClass(0)">
-      <regulation :regulation="regulation" :programLevel="programLevel" :program_level="program_level"/>
+      <regulation :selectedProgram="selectedProgram"
+      :Program="Program" :selectedRegulation="selectedRegulation"
+       :program_id='program_id'  :regulation="regulation" 
+       :programLevel="programLevel" :program_level="program_level" />
     </b-tab>
     <b-tab title="SCHEME"></b-tab>
     <b-tab title="SUBJECTS"><p>I'm the tab with the very, very long title</p></b-tab>
@@ -76,7 +79,7 @@ export default {
   .then(response =>this.programLevel = response.data)
   .catch(error => console.log(error));
       return {
-         tabIndex: 0,
+        tabIndex: 0,
         bordered: true,
         regulations: [],
         program: '',

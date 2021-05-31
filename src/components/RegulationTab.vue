@@ -53,7 +53,7 @@ purpose of a scheduled academic instruction. </li>
             </ol>
         </p>
     </div>
-    <div v-if="selectedItem == 2" >
+    <div v-else-if="selectedItem == 2" >
       <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
       <p style="text-align:left">
         <ol>
@@ -75,7 +75,7 @@ regulations will be applicable.</li>
         </ol>
       </p>
     </div>
-    <div v-if="selectedItem == 3">
+    <div v-else-if="selectedItem == 3">
               <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
         <p style="text-align:left">
           <ol>
@@ -87,7 +87,7 @@ Academic Council.</li>
           </ol>
         </p>
     </div>
-    <div v-if="selectedItem == 4">
+    <div v-else-if="selectedItem == 4">
             <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
             <p style="text-align:left">
               <ol>
@@ -102,11 +102,11 @@ Affiliating University.</li>
 
             </p>
     </div>
-    <div v-if="selectedItem == 5">
+    <div v-else-if="selectedItem == 5">
         <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
             <p style="text-align:left">
               <ol>
-                <li> <b>Duration:</b>  The duration of {{ regulation.program.name}} degree course is {{ getSemCounts() }} semesters spread
+                 <li> <b>Duration:</b>  The duration of {{ regulation.program.name}} degree course is {{ getSemCounts() }} semesters spread
 over {{academicYears()}}  academic years. Semesters are named sequentially from {{regulation.semesters[0].name}} to {{regulation.semesters[regulation.semesters.length-1].name}}.</li>
 <li> <b>Working Days:</b>  Calendar for any semester shall be announced at least four
 weeks before its commencement. Minimum number of working days are 90
@@ -114,15 +114,13 @@ for a semester</li>
 <li v-if="programLevel[program_level-1].short_name == 'UG'"> <b>Curriculum:</b>  Each major shall have core, elective and mandatory subjects drawn
 from {{ curriculumCount() }} categories of subject areas:
 <ul style="list-style-type:circle" v-for="categories in curriculumCategories" :key="categories.name">
-  <li>{{categories.name}}({{ categories.sname}})</li>
-  </ul>The curriculum for
-each Major shall be approved by its corresponding Board of Studies and then
-by the Academic Council</li>
+  <li>{{categories.name}}({{ categories.sname}})</li></ul>
+  The curriculum for each Major shall be approved by its corresponding Board of Studies and then by the Academic Council</li>
   <li><b>Credits:</b>  All subjects that are assessed for marks have credits assigned to them. The
 credits assigned to subjects shall be given in curriculum. The total number of credits
 for entire course is {{regulation.total_credits}} for all branches.</li>
 <li>The distribution of total credits semester-wise is given in the below table</li>
-              <!-- <b-table v-if="regulation.short_name == 'R15UG'"
+              <b-table v-if="regulation.short_name == 'R15UG'"
               striped
               hover
               :items="r15ug"
@@ -145,7 +143,7 @@ for entire course is {{regulation.total_credits}} for all branches.</li>
               hover
               :items="r18pg"
               :fields="credits_table"
-              ></b-table> -->
+              ></b-table>
 <li><b>Medium of Instruction:</b>  The medium of instruction, examinations and all other
 related activities is English.
 </li>
@@ -168,7 +166,7 @@ the student and decide on permitting the student for availing the gap-year. Gapy
                </ol>
             </p>
     </div>
-    <div v-if="selectedItem == 6">
+    <div v-else-if="selectedItem == 6">
       <p style="text-align:left">
         <ol>
           <li>Prior to opening of each semester, every student shall register for all the
@@ -196,181 +194,38 @@ of Examinations</li>
         </ol>
       </p>
     </div>
-    <div v-if="selectedItem == 7">
+    <div v-else-if="selectedItem == 7">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 8">
+    <div v-else-if="selectedItem == 8">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 9">
+    <div v-else-if="selectedItem == 9">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 10">
+    <div v-else-if="selectedItem == 10">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 11">
+    <div v-else-if="selectedItem == 11">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 12">
+    <div v-else-if="selectedItem == 12">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 13">
+    <div v-else-if="selectedItem == 13">
         <p>this is {{ items[selectedItem].name }}</p>
+    </div>
+    <div v-else-if="selectedItem == false">
+        <p>Please select any one</p>
+    </div>
+    <div v-else>
+        <p>Details not found</p>
     </div>
         </div>
 
 </div>
 </template>
 <script>
-import axios from 'axios'
-export default {
-    props:['regulation','programLevel','program_level'],
-    data() {
-      return {
-        tabIndex: 0,
-        bordered: true,
-        regulations: [],
-        program: '',
-        program_id: null,
-        Program: '-',
-        academicYearDuration:null,
-        getSemCount: null,
-        curriculuLength: null,
-        curriculumCategories:[],
-        NoOfStudents: 2000,
-        selectedProgram: null,
-        selectedRegulationLabel: '',
-        selectedRegulation: null,
-        selectedItem: '',
-        creedits_table:[
-            { key: 'Semester'},
-          { key: 'Total_credits'}
-        ],
-        r14ug:[
-            {'Semester':'First Year','Total_credits':45},
-            {'Semester':'Third Semester','Total_credits':22},
-            {'Semester':'Fourth Semester','Total_credits':22},
-            {'Semester':'Fifth Semester','Total_credits':22},
-            {'Semester':'Sixth Semester','Total_credits':22},
-            {'Semester':'Seventh Semester','Total_credits':22},
-            {'Semester':'Eighth Semester','Total_credits':25},
-            {'Semester':'Total for entire course','Total_credits':180}
-        ],
-        r15ug:[
-            {'Semester':'First Semester','Total_credits':22},
-            {'Semester':'Second Semester','Total_credits':22},
-            {'Semester':'Third Semester','Total_credits':22},
-            {'Semester':'Fourth Semester','Total_credits':22},
-            {'Semester':'Fifth Semester','Total_credits':22},
-            {'Semester':'Sixth Semester','Total_credits':22},
-            {'Semester':'Seventh Semester','Total_credits':22},
-            {'Semester':'Eighth Semester','Total_credits':26},
-            {'Semester':'Total for entire course','Total_credits':180}
-        ],
-        r14pg:[
-            {'Semester':'First Semester','Total_credits':26},
-            {'Semester':'Second Semester','Total_credits':26},
-            {'Semester':'Third Semester','Total_credits':2},
-            {'Semester':'Fourth Semester','Total_credits':16},
-            {'Semester':'Total for entire course','Total_credits':70}
-        ],
-        r18pg:[{'Semester':'First Semester','Total_credits':18},
-            {'Semester':'Second Semester','Total_credits':18},
-            {'Semester':'Third Semester','Total_credits':16},
-            {'Semester':'Fourth Semester','Total_credits':16},
-            {'Semester':'Total for entire course','Total_credits':68}],
-
-        items:[
-               {sname: 1,name:'Nomenclature'},
-               {sname: 2,name:'Short Title And Application'},
-               {sname: 3,name:'Suspension And Amendment Of Rules'},
-               {sname: 4,name:'Requirements For Admission'},
-               {sname: 5,name:'Structure Of The B. Tech Course'},
-               {sname: 6,name:'Registration And Enrolment'},
-               {sname: 7,name:'Assessment Procedure – Internal Tests And End Examinations'},
-               {sname: 8,name:'Requirements For Completing Subjects'},
-               {sname: 9,name:'Requirements For Taking End Examinations And Promotion'},
-               {sname: 10,name:'Revaluation Of End Examination Scripts'},
-               {sname: 11,name:'Supplementary End Examinations'},
-               {sname: 12,name:'Requirements For Award Of B. Tech Degree'},
-               {sname: 13,name:'Transitory Regulations'}
-                
-            ],
-    }
-  },
-  methods:{
-    linkClass(idx) {
-        if (this.tabIndex === idx) {
-          return ['bg-danger', 'text-light']
-        } else {
-          return ['bg-light', 'text-info']
-        }
-      },
-    getStudentCount(){},
-    getSemesterNames(){
-        for (var prop in this.regulation.semesters) {
-        console.log(this.regulation.semesters[prop])
-        }
-        console.log(this.regulation.semester)
-    },
-    getRegulationEndYear(){
-      if (this.regulation.end_year == null) {
-        return 'InForce'
-      }
-      else{
-        return this.regulation.end_year
-      }
-    },
-    curriculumCount(){
-      if(this.regulation.short_name == 'R15UG' || this.regulation.short_name == 'R14UG'){
-        this.curriculumCategories = [
-          { sname:'BS',name:'Basic Science'},
-          { sname:'HS',name:'Humanities and Social Sciences'},
-          { sname:'ED',name:'Basic Engineering and Design'},
-          { sname:'PJ',name:'Professional Major'},
-          { sname:'PN',name:'Professional Minor'}
-        ]
-        return (this.curriculuLength = 'five')
-      }
-      else{
-        this.curriculumCategories = [
-          { sname:'BSc',name:'Basic Science'},
-          { sname:'HSMC',name:'Humanities and Social Sciences including Management Courses'},
-          { sname:'ESC',name:' Engineering Science Courses'},
-          { sname:'PCC',name:'Professional Core Course'},
-          { sname:'PEC',name:'Professional Elective Course'},
-          { sname:'OEC',name:'Open Elective Course'}
-        ]
-        return (this.curriculuLength = 'six')
-      }
-    },
-    getSemesterCredits(){
-      axios.get(`http://127.0.0.1:8000/api/credits/sp/${this.specialization_id}/${this.semester_id}`)
-      .then(response => this.credits = response.data)
-      .catch(error => console.log(error));
-      
-    },
-    getSemCounts(){
-      if(this.regulation.semesters.length == 8 || this.regulations.semesters.length == 7){
-        return this.getSemCount = 'Eight'
-      }
-      else{
-        return this.getSemCount = 'Four'
-      }
-    },
-    academicYears(program_level){
-      if(program_level == 1){
-        return this.academicYearDuration = 'four'
-      }
-      else{
-        return this.academicYearDuration ='two'
-      }
-
-    },
-  },
-  components:{
-  }
-}
 </script>
 <style>
 #regulations{

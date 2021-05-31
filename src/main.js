@@ -11,6 +11,8 @@ import 'jquery/dist/jquery.min.js'
 
 import router from './router'
 
+import store from './script'
+
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
@@ -45,5 +47,6 @@ export const bus = new Vue();
 new Vue({
   mode: 'histoy',
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

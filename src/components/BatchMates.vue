@@ -1,13 +1,13 @@
 <template>
   <div id="batchmates">
-    <p> {{ new Date().getFullYear()- joinedyear }} Year {{ branch }} Students List </p>
+    <p>Ex: {{ new Date().getFullYear()- joinedyear }} Year {{ branch }} Students List </p>
     <div class="table">
       <b-input-group id="search-bar">
             <b-form-input
               id="filter-input"
               v-model="filter"
               type="search"
-              placeholder="Type to Search"
+              placeholder="Search with Regd.No, Name, Email or Phone "
             ></b-form-input>
 
             <b-input-group-append>
