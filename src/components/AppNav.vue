@@ -146,8 +146,10 @@ export default {
 }
 </script>
 <style scoped>
+
 .nav-link {
 color: white !important;
+font-weight: bolder;
 }
 ul li a:hover{
   text-decoration: none;

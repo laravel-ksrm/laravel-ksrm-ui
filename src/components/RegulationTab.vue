@@ -1,13 +1,12 @@
 <template>
-  <div id="programdetails">
-    <p>This is programdetails page</p>
-    <div id="title"><b>
+<div id="regulations">
+    
+        <div id="title"><b>
             KSRM College of Engineering (Autonomuos), Kadapa-516003, AP <br>
-                                {{ regulation.name }} <br>
+                                {{ regulation.name }} ( {{regulation.short_name}} ) <br>
                             (Effective from {{regulation.start_year}}) </b>
-        </div>
-        <br>
-        <b-form-select
+                            <br>
+            <b-form-select
       v-model="selectedItem"
       class="mb-3 col-5 select"
       disabled-field="notEnabled"
@@ -17,8 +16,7 @@
     ><template v-slot:first>
         <b-form-select-option :value= null disabled selected>Please select an Option</b-form-select-option>
       </template></b-form-select>
-    <!-- <div class="mt-2">Selected: <strong>{{ items[selectedItem].name }}</strong></div> -->
-    <div v-if="selectedItem == 1">
+      <div class="" v-if="selectedItem == 1">
         <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
         <p style="text-align:left">
             <ol>
@@ -124,13 +122,50 @@ by the Academic Council</li>
 credits assigned to subjects shall be given in curriculum. The total number of credits
 for entire course is {{regulation.total_credits}} for all branches.</li>
 <li>The distribution of total credits semester-wise is given in the below table</li>
-              <b-table
+              <!-- <b-table v-if="regulation.short_name == 'R15UG'"
               striped
               hover
-              :items="items"
-              :fields="fields"
+              :items="r15ug"
+              :fields="credits_table"
               ></b-table>
-              </ol>
+              <b-table v-else-if="regulation.short_name == 'R14UG'"
+              striped
+              hover
+              :items="r14ug"
+              :fields="credits_table"
+              ></b-table>
+              <b-table v-else-if="regulation.short_name == 'R14PG'"
+              striped
+              hover
+              :items="r14pg"
+              :fields="credits_table"
+              ></b-table>
+              <b-table v-else-if="regulation.short_name == 'R18PG'"
+              striped
+              hover
+              :items="r18pg"
+              :fields="credits_table"
+              ></b-table> -->
+<li><b>Medium of Instruction:</b>  The medium of instruction, examinations and all other
+related activities is English.
+</li>
+<li>
+    <b>Responsibility and Advising:</b>
+    It is the responsibility of the student to understand and
+know the regulations and requirements to earn the degree. Each student admitted
+into the degree programs is assigned to a Faculty Advisor who assists the student in
+designing an effective program of study. Students should consult their Faculty
+Advisors for selection of electives and for general advice on academic program.
+
+</li>
+<li>
+    <b>Gap-Year:</b>
+    Outstanding students who wish to pursue entrepreneurship are allowed
+to take a break of one year at any time after II Year / III Year to pursue
+entrepreneurship full time. This period shall be counted for the maximum time for
+graduation. College Academic Council shall evaluate the proposal submitted by
+the student and decide on permitting the student for availing the gap-year. Gapyear can be availed once in the entire course.</li>
+               </ol>
             </p>
     </div>
     <div v-if="selectedItem == 6">
@@ -182,15 +217,207 @@ of Examinations</li>
     <div v-if="selectedItem == 13">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-  </div>
-  
-</template>
+        </div>
 
+</div>
+</template>
 <script>
-export default {}
-</script>
-<style scoped>
-#programdetails{
-  background-color: white;
+import axios from 'axios'
+export default {
+    props:['regulation','programLevel','program_level'],
+    data() {
+      return {
+        tabIndex: 0,
+        bordered: true,
+        regulations: [],
+        program: '',
+        program_id: null,
+        Program: '-',
+        academicYearDuration:null,
+        getSemCount: null,
+        curriculuLength: null,
+        curriculumCategories:[],
+        NoOfStudents: 2000,
+        selectedProgram: null,
+        selectedRegulationLabel: '',
+        selectedRegulation: null,
+        selectedItem: '',
+        creedits_table:[
+            { key: 'Semester'},
+          { key: 'Total_credits'}
+        ],
+        r14ug:[
+            {'Semester':'First Year','Total_credits':45},
+            {'Semester':'Third Semester','Total_credits':22},
+            {'Semester':'Fourth Semester','Total_credits':22},
+            {'Semester':'Fifth Semester','Total_credits':22},
+            {'Semester':'Sixth Semester','Total_credits':22},
+            {'Semester':'Seventh Semester','Total_credits':22},
+            {'Semester':'Eighth Semester','Total_credits':25},
+            {'Semester':'Total for entire course','Total_credits':180}
+        ],
+        r15ug:[
+            {'Semester':'First Semester','Total_credits':22},
+            {'Semester':'Second Semester','Total_credits':22},
+            {'Semester':'Third Semester','Total_credits':22},
+            {'Semester':'Fourth Semester','Total_credits':22},
+            {'Semester':'Fifth Semester','Total_credits':22},
+            {'Semester':'Sixth Semester','Total_credits':22},
+            {'Semester':'Seventh Semester','Total_credits':22},
+            {'Semester':'Eighth Semester','Total_credits':26},
+            {'Semester':'Total for entire course','Total_credits':180}
+        ],
+        r14pg:[
+            {'Semester':'First Semester','Total_credits':26},
+            {'Semester':'Second Semester','Total_credits':26},
+            {'Semester':'Third Semester','Total_credits':2},
+            {'Semester':'Fourth Semester','Total_credits':16},
+            {'Semester':'Total for entire course','Total_credits':70}
+        ],
+        r18pg:[{'Semester':'First Semester','Total_credits':18},
+            {'Semester':'Second Semester','Total_credits':18},
+            {'Semester':'Third Semester','Total_credits':16},
+            {'Semester':'Fourth Semester','Total_credits':16},
+            {'Semester':'Total for entire course','Total_credits':68}],
+
+        items:[
+               {sname: 1,name:'Nomenclature'},
+               {sname: 2,name:'Short Title And Application'},
+               {sname: 3,name:'Suspension And Amendment Of Rules'},
+               {sname: 4,name:'Requirements For Admission'},
+               {sname: 5,name:'Structure Of The B. Tech Course'},
+               {sname: 6,name:'Registration And Enrolment'},
+               {sname: 7,name:'Assessment Procedure – Internal Tests And End Examinations'},
+               {sname: 8,name:'Requirements For Completing Subjects'},
+               {sname: 9,name:'Requirements For Taking End Examinations And Promotion'},
+               {sname: 10,name:'Revaluation Of End Examination Scripts'},
+               {sname: 11,name:'Supplementary End Examinations'},
+               {sname: 12,name:'Requirements For Award Of B. Tech Degree'},
+               {sname: 13,name:'Transitory Regulations'}
+                
+            ],
+    }
+  },
+  methods:{
+    linkClass(idx) {
+        if (this.tabIndex === idx) {
+          return ['bg-danger', 'text-light']
+        } else {
+          return ['bg-light', 'text-info']
+        }
+      },
+    getStudentCount(){},
+    getSemesterNames(){
+        for (var prop in this.regulation.semesters) {
+        console.log(this.regulation.semesters[prop])
+        }
+        console.log(this.regulation.semester)
+    },
+    getRegulationEndYear(){
+      if (this.regulation.end_year == null) {
+        return 'InForce'
+      }
+      else{
+        return this.regulation.end_year
+      }
+    },
+    curriculumCount(){
+      if(this.regulation.short_name == 'R15UG' || this.regulation.short_name == 'R14UG'){
+        this.curriculumCategories = [
+          { sname:'BS',name:'Basic Science'},
+          { sname:'HS',name:'Humanities and Social Sciences'},
+          { sname:'ED',name:'Basic Engineering and Design'},
+          { sname:'PJ',name:'Professional Major'},
+          { sname:'PN',name:'Professional Minor'}
+        ]
+        return (this.curriculuLength = 'five')
+      }
+      else{
+        this.curriculumCategories = [
+          { sname:'BSc',name:'Basic Science'},
+          { sname:'HSMC',name:'Humanities and Social Sciences including Management Courses'},
+          { sname:'ESC',name:' Engineering Science Courses'},
+          { sname:'PCC',name:'Professional Core Course'},
+          { sname:'PEC',name:'Professional Elective Course'},
+          { sname:'OEC',name:'Open Elective Course'}
+        ]
+        return (this.curriculuLength = 'six')
+      }
+    },
+    getSemesterCredits(){
+      axios.get(`http://127.0.0.1:8000/api/credits/sp/${this.specialization_id}/${this.semester_id}`)
+      .then(response => this.credits = response.data)
+      .catch(error => console.log(error));
+      
+    },
+    getSemCounts(){
+      if(this.regulation.semesters.length == 8 || this.regulations.semesters.length == 7){
+        return this.getSemCount = 'Eight'
+      }
+      else{
+        return this.getSemCount = 'Four'
+      }
+    },
+    academicYears(program_level){
+      if(program_level == 1){
+        return this.academicYearDuration = 'four'
+      }
+      else{
+        return this.academicYearDuration ='two'
+      }
+
+    },
+  },
+  components:{
+  }
 }
+</script>
+<style>
+#regulations{
+    max-width: 700px;
+}
+#my-table{
+  width: 50%;
+
+}
+.explore{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+#selection{
+  margin-left: 25px;
+  margin-right: 25px;
+  padding-top: 10px;
+}
+.button{
+  font-size:small;
+  padding-left: 2px;
+  margin-right:10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  width:140px ;
+}
+.button :hover{
+  background-color: red;
+  color: white;
+}
+.hr {
+  margin-left: 10px;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  border-style: inset;
+  height: 1.5px;
+  background-color: yellow;
+}
+.b-form-select{
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.selectreg{
+  margin-left: 20px;
+}
+
 </style>
