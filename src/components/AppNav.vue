@@ -18,37 +18,30 @@
           class="nav-link"
           active-class="active"
           exact
-        >Home</router-link>
+        >Home <hr class="hr1"></router-link>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-555" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Programs
             </a>
-            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
-              <li class="nav-item">
-            <router-link
-          to="syllabus"
-          class="dropdown-item waves-effect waves-light"
-          active-class="active"
-          exact
-        >Syllbus</router-link>
-        </li>
+            <div class="dropdown-menu dropdown-secondary dropdown" aria-labelledby="navbarDropdownMenuLink-555">
+              
               <li class="nav-item">
             <router-link
           to="regulations"
           class="dropdown-item waves-effect waves-light"
           active-class="active"
           exact
-        >Regulations</router-link>
-          </li> 
+        >Regulations <hr class="hr2"></router-link>
+          </li><b-dropdown-divider></b-dropdown-divider>
           <li class="nav-item">
             <router-link
           to="departments"
-          class="dropdown-item waves-effect waves-light"
+          class="dropdown-item"
           active-class="active"
           exact
-        >Departments</router-link>
+        >Departments<hr class="hr2"></router-link>
         
-          </li>
+          </li><b-dropdown-divider></b-dropdown-divider>
           
         <li class="nav-item">
             <router-link
@@ -56,7 +49,7 @@
           class="dropdown-item waves-effect waves-light"
           active-class="active"
           exact
-        >BatchMates</router-link>
+        >BatchMates <hr class="hr2"></router-link>
         
           
           </li>
@@ -68,7 +61,7 @@
           class="nav-link"
           active-class="active"
           exact
-        >Results</router-link>
+        >Results<hr class="hr1"></router-link>
           </li> 
           <li class="nav-item">
             <router-link
@@ -76,7 +69,7 @@
           class="nav-link"
           active-class="active"
           exact
-        >Admin</router-link>
+        >Admin<hr class="hr1"></router-link>
         
           </li>
           <!--  A simple Dropdown -->
@@ -92,19 +85,21 @@
         </ul>
         <ul class="navbar-nav nav-flex-icons">
           <li class="nav-item">
-            <a href="#" class=" popover-test" title="Header" data-toggle="popover" data-placement="bottom" data-content="Content">
             <router-link
-          to="notifications"
-          class="nav-link"
+            to=""
+            @click="noti_open"
+          id="popover-target-1"
+          class="nav-link "
           exact
-        ><img src="https://icon-library.com/images/notification-icon-png/notification-icon-png-12.jpg" style="border-radius: 80%;
+        ><img src="../assets/images/notification.jpg" style="border-radius: 80%;
     width: 35px;
-    height: 30px; "><sup>1000</sup>
-                </router-link></a>
+    height: 30px; "><sup> {{ notificationCount}} </sup>
+                </router-link>
           </li>
           <li class="nav-item avatar dropdown">
             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="avatar image" style="border-radius: 80%;
+              <img src="../assets/images/avatar.png" alt="avatar image" style="border-radius: 80%;
+
     width: 35px;
     height: 30px; ">
             </a>
@@ -131,20 +126,78 @@
         </ul>
         
       </div>
+      <b-popover target="popover-target-1" variant="success" :show.sync="pop" triggers="click" placement="top">
+    <template #title>Notifications</template>
+    <ul style="list-style-type:none" v-for="noti in notification" :key="noti.name">
+  <li>{{noti.name}}</li>
+  </ul>
+  <b-button @click="onClose">Close</b-button>
+  </b-popover>
     </nav>
     <!--/.Navbar -->
     
 </template>
 <script>
 export default {
-
+  data(){
+    return{
+      pop: false,
+      notificationCount: 10,
+      notification:[
+        { name:'1 st notification'},
+        { name:'2 nd notification'},
+        { name:'3 rd notification'},
+        { name:'4 th notification'},
+        { name:'5 th notification'}
+      ]
+    }
+  },
+  methods:{
+    noti_open(){
+      this.pop = true
+    },
+    onClose() {
+        this.pop = false
+      }
+  }
 }
 </script>
 <style scoped>
+
+ul li:hover div.dropdown{
+  display: block;
+}
 .nav-link {
 color: white !important;
+font-weight: bolder;
+backface-visibility: hidden;
 }
 ul li a:hover{
   text-decoration: none;
+}
+.dropdown{
+  border-radius: 8px;
+  margin-top: 0px;
+  padding-top: -3px;
+  
+}
+.hr1{
+margin-left: 0px;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  border-style: inset;
+  height: 1.5px;
+  background-color: yellow;
+}
+.hr2{
+  height: 0px;
+  margin-top: 1px;
+  margin-bottom: 0px;
+  border-style: inset;
+  height: 1.2px;
+  background-color: green;
+}
+.hr:hover{
+  background-color: brown;
 }
 </style>

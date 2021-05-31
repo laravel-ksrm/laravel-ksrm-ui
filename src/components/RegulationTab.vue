@@ -1,13 +1,12 @@
 <template>
-  <div id="programdetails">
-    <p>This is programdetails page</p>
-    <div id="title"><b>
+<div id="regulations">
+    
+        <div id="title"><b>
             KSRM College of Engineering (Autonomuos), Kadapa-516003, AP <br>
-                                {{ regulation.name }} <br>
+                                {{ regulation.name }} ( {{regulation.short_name}} ) <br>
                             (Effective from {{regulation.start_year}}) </b>
-        </div>
-        <br>
-        <b-form-select
+                            <br>
+            <b-form-select
       v-model="selectedItem"
       class="mb-3 col-5 select"
       disabled-field="notEnabled"
@@ -17,8 +16,7 @@
     ><template v-slot:first>
         <b-form-select-option :value= null disabled selected>Please select an Option</b-form-select-option>
       </template></b-form-select>
-    <!-- <div class="mt-2">Selected: <strong>{{ items[selectedItem].name }}</strong></div> -->
-    <div v-if="selectedItem == 1">
+      <div class="" v-if="selectedItem == 1">
         <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
         <p style="text-align:left">
             <ol>
@@ -55,7 +53,7 @@ purpose of a scheduled academic instruction. </li>
             </ol>
         </p>
     </div>
-    <div v-if="selectedItem == 2" >
+    <div v-else-if="selectedItem == 2" >
       <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
       <p style="text-align:left">
         <ol>
@@ -77,7 +75,7 @@ regulations will be applicable.</li>
         </ol>
       </p>
     </div>
-    <div v-if="selectedItem == 3">
+    <div v-else-if="selectedItem == 3">
               <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
         <p style="text-align:left">
           <ol>
@@ -89,7 +87,7 @@ Academic Council.</li>
           </ol>
         </p>
     </div>
-    <div v-if="selectedItem == 4">
+    <div v-else-if="selectedItem == 4">
             <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
             <p style="text-align:left">
               <ol>
@@ -104,11 +102,11 @@ Affiliating University.</li>
 
             </p>
     </div>
-    <div v-if="selectedItem == 5">
+    <div v-else-if="selectedItem == 5">
         <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p>
             <p style="text-align:left">
               <ol>
-                <li> <b>Duration:</b>  The duration of {{ regulation.program.name}} degree course is {{ getSemCounts() }} semesters spread
+                 <li> <b>Duration:</b>  The duration of {{ regulation.program.name}} degree course is {{ getSemCounts() }} semesters spread
 over {{academicYears()}}  academic years. Semesters are named sequentially from {{regulation.semesters[0].name}} to {{regulation.semesters[regulation.semesters.length-1].name}}.</li>
 <li> <b>Working Days:</b>  Calendar for any semester shall be announced at least four
 weeks before its commencement. Minimum number of working days are 90
@@ -116,24 +114,59 @@ for a semester</li>
 <li v-if="programLevel[program_level-1].short_name == 'UG'"> <b>Curriculum:</b>  Each major shall have core, elective and mandatory subjects drawn
 from {{ curriculumCount() }} categories of subject areas:
 <ul style="list-style-type:circle" v-for="categories in curriculumCategories" :key="categories.name">
-  <li>{{categories.name}}({{ categories.sname}})</li>
-  </ul>The curriculum for
-each Major shall be approved by its corresponding Board of Studies and then
-by the Academic Council</li>
+  <li>{{categories.name}}({{ categories.sname}})</li></ul>
+  The curriculum for each Major shall be approved by its corresponding Board of Studies and then by the Academic Council</li>
   <li><b>Credits:</b>  All subjects that are assessed for marks have credits assigned to them. The
 credits assigned to subjects shall be given in curriculum. The total number of credits
 for entire course is {{regulation.total_credits}} for all branches.</li>
 <li>The distribution of total credits semester-wise is given in the below table</li>
-              <b-table
+              <b-table v-if="regulation.short_name == 'R15UG'"
               striped
               hover
-              :items="items"
-              :fields="fields"
+              :items="r15ug"
+              :fields="credits_table"
               ></b-table>
-              </ol>
+              <b-table v-else-if="regulation.short_name == 'R14UG'"
+              striped
+              hover
+              :items="r14ug"
+              :fields="credits_table"
+              ></b-table>
+              <b-table v-else-if="regulation.short_name == 'R14PG'"
+              striped
+              hover
+              :items="r14pg"
+              :fields="credits_table"
+              ></b-table>
+              <b-table v-else-if="regulation.short_name == 'R18PG'"
+              striped
+              hover
+              :items="r18pg"
+              :fields="credits_table"
+              ></b-table>
+<li><b>Medium of Instruction:</b>  The medium of instruction, examinations and all other
+related activities is English.
+</li>
+<li>
+    <b>Responsibility and Advising:</b>
+    It is the responsibility of the student to understand and
+know the regulations and requirements to earn the degree. Each student admitted
+into the degree programs is assigned to a Faculty Advisor who assists the student in
+designing an effective program of study. Students should consult their Faculty
+Advisors for selection of electives and for general advice on academic program.
+
+</li>
+<li>
+    <b>Gap-Year:</b>
+    Outstanding students who wish to pursue entrepreneurship are allowed
+to take a break of one year at any time after II Year / III Year to pursue
+entrepreneurship full time. This period shall be counted for the maximum time for
+graduation. College Academic Council shall evaluate the proposal submitted by
+the student and decide on permitting the student for availing the gap-year. Gapyear can be availed once in the entire course.</li>
+               </ol>
             </p>
     </div>
-    <div v-if="selectedItem == 6">
+    <div v-else-if="selectedItem == 6">
       <p style="text-align:left">
         <ol>
           <li>Prior to opening of each semester, every student shall register for all the
@@ -161,36 +194,85 @@ of Examinations</li>
         </ol>
       </p>
     </div>
-    <div v-if="selectedItem == 7">
+    <div v-else-if="selectedItem == 7">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 8">
+    <div v-else-if="selectedItem == 8">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 9">
+    <div v-else-if="selectedItem == 9">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 10">
+    <div v-else-if="selectedItem == 10">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 11">
+    <div v-else-if="selectedItem == 11">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 12">
+    <div v-else-if="selectedItem == 12">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-    <div v-if="selectedItem == 13">
+    <div v-else-if="selectedItem == 13">
         <p>this is {{ items[selectedItem].name }}</p>
     </div>
-  </div>
-  
-</template>
+    <div v-else-if="selectedItem == false">
+        <p>Please select any one</p>
+    </div>
+    <div v-else>
+        <p>Details not found</p>
+    </div>
+        </div>
 
+</div>
+</template>
 <script>
-export default {}
 </script>
-<style scoped>
-#programdetails{
-  background-color: white;
+<style>
+#regulations{
+    max-width: 700px;
 }
+#my-table{
+  width: 50%;
+
+}
+.explore{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+#selection{
+  margin-left: 25px;
+  margin-right: 25px;
+  padding-top: 10px;
+}
+.button{
+  font-size:small;
+  padding-left: 2px;
+  margin-right:10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  width:140px ;
+}
+.button :hover{
+  background-color: red;
+  color: white;
+}
+.hr {
+  margin-left: 10px;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  border-style: inset;
+  height: 1.5px;
+  background-color: yellow;
+}
+.b-form-select{
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.selectreg{
+  margin-left: 20px;
+}
+
 </style>
