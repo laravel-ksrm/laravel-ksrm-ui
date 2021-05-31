@@ -49,16 +49,20 @@
     <div class="explore">
       
       <b-tabs v-model="tabIndex" content-class="mt-3" fill>
-    <b-tab title="REGULATIONS" active :title-link-class="linkClass(0)">
-      <regulation :selectedProgram="selectedProgram"
+    <b-tab title="REGULATIONS" :title-link-class="linkClass(0)">
+      <div v-if="selectedProgram && selectedRegulation">
+        <p>Regulations Tab</p><regulation :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
        :program_id='program_id'  :regulation="regulation" 
        :programLevel="programLevel" :program_level="program_level" />
+        </div>
+      <div v-else><p>No Matching Data Found.</p></div>
+      
     </b-tab>
-    <b-tab title="SCHEME"></b-tab>
-    <b-tab title="SUBJECTS"><p>I'm the tab with the very, very long title</p></b-tab>
+    <b-tab title="SCHEME" :title-link-class="linkClass(1)">Scheme Tab</b-tab>
+    <b-tab title="SUBJECTS" :title-link-class="linkClass(2)"><p>Subject Tab</p></b-tab>
     
-    <b-tab title="FEEDBACK"><p>I'm a disabled tab!</p></b-tab>
+    <b-tab title="FEEDBACK" :title-link-class="linkClass(3)"><p>FeedBack Tab</p></b-tab>
   </b-tabs>
     </div>
     
@@ -127,7 +131,7 @@ export default {
   methods:{
     linkClass(idx) {
         if (this.tabIndex === idx) {
-          return ['bg-danger', 'text-light']
+          return ['bg-secondary', 'text-light']
         } else {
           return ['bg-light', 'text-info']
         }

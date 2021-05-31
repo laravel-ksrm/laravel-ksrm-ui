@@ -9,7 +9,7 @@ export default new Router({
     routes: [
     { path: '/marks',name: 'marks',component: () => import('./components/Marks.vue') },
     { path: '/Notifications',  name: 'notifications',  component: ()=>import('./components/Marks.vue')},
-    { path: '/Admin',name:'admin',component:()=>import('./components/Marks.vue')},
+    { path: '/Admin',name:'admin',component:()=>import('./components/Admin.vue')},
     { path: '/',name:'home',component: Home},
     { path: '/regulations',name:'regulations',component:()=>import('./components/Regulations.vue')},
     { path: '/Profile',name:'profile',component:()=>import('./components/Profile.vue') },

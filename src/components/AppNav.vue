@@ -18,7 +18,7 @@
           class="nav-link"
           active-class="active"
           exact
-        >Home <hr class="hr1"></router-link>
+        >Home</router-link>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-555" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Programs
@@ -31,7 +31,7 @@
           class="dropdown-item waves-effect waves-light"
           active-class="active"
           exact
-        >Regulations <hr class="hr2"></router-link>
+        >Regulations</router-link>
           </li><b-dropdown-divider></b-dropdown-divider>
           <li class="nav-item">
             <router-link
@@ -39,7 +39,7 @@
           class="dropdown-item"
           active-class="active"
           exact
-        >Departments<hr class="hr2"></router-link>
+        >Departments</router-link>
         
           </li><b-dropdown-divider></b-dropdown-divider>
           
@@ -49,7 +49,7 @@
           class="dropdown-item waves-effect waves-light"
           active-class="active"
           exact
-        >BatchMates <hr class="hr2"></router-link>
+        >BatchMates</router-link>
         
           
           </li>
@@ -61,7 +61,7 @@
           class="nav-link"
           active-class="active"
           exact
-        >Results<hr class="hr1"></router-link>
+        >Results</router-link>
           </li> 
           <li class="nav-item">
             <router-link
@@ -69,7 +69,7 @@
           class="nav-link"
           active-class="active"
           exact
-        >Admin<hr class="hr1"></router-link>
+        >Admin</router-link>
         
           </li>
           <!--  A simple Dropdown -->
@@ -181,23 +181,5 @@ ul li a:hover{
   padding-top: -3px;
   
 }
-.hr1{
-margin-left: 0px;
-  margin-top: 0em;
-  margin-bottom: 0em;
-  border-style: inset;
-  height: 1.5px;
-  background-color: yellow;
-}
-.hr2{
-  height: 0px;
-  margin-top: 1px;
-  margin-bottom: 0px;
-  border-style: inset;
-  height: 1.2px;
-  background-color: green;
-}
-.hr:hover{
-  background-color: brown;
-}
+
 </style>
