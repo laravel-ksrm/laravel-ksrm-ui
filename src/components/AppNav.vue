@@ -14,20 +14,20 @@
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item">
             <router-link
-          to="/"
+          to= null
           class="nav-link"
           active-class="active"
           exact
         >Home</router-link>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-555" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Programs
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Programs
             </a>
-            <div class="dropdown-menu dropdown-secondary dropdown" aria-labelledby="navbarDropdownMenuLink-555">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-555">
               
               <li class="nav-item">
             <router-link
-          to="regulations"
+          to="academics"
           class="dropdown-item waves-effect waves-light"
           active-class="active"
           exact
@@ -179,7 +179,6 @@ ul li a:hover{
   border-radius: 8px;
   margin-top: 0px;
   padding-top: -3px;
-  
 }
 
 </style>

@@ -36,14 +36,15 @@
   <!--v-if="selectedRegulation&&selectedProgram"> -->
     <!-- <h1>Regulations data will appear here</h1> -->
     <div>
-    <b-button class="button" variant="success" > Program Name<hr class="hr"> {{ programLevel[program_level-1].short_name }} </b-button>
-    <b-button class="button" variant="success" > Regulation Name<hr class="hr"> {{ regulation.short_name }} </b-button>
-    <b-button class="button" variant="success" > Courses Offered<hr class="hr"> {{  regulation.program.specializations.length }} </b-button>
-    <b-button class="button" variant="success" >No.Of Semesters<hr class="hr"> {{ regulation.semesters.length }} </b-button>
-    <b-button class="button" variant="success" >No.Of Credits<hr class="hr"> {{  regulation.total_credits }} </b-button>
-    <b-button class="button" variant="success" >No.Of Students<hr class="hr"> {{  NoOfStudents }} </b-button>
-    <b-button class="button" variant="success" > Regulation Start Year<hr class="hr"> {{ regulation.start_year }} </b-button>
-    <b-button class="button" variant="success" > Regulation End Year<hr class="hr"> {{ getRegulationEndYear() }} </b-button>
+    <b-button class="button" variant="success" >PROGRAM<hr class="hr"> {{ programLevel[program_level-1].short_name }} </b-button>
+    <b-button class="button" variant="success" >REGULATION<hr class="hr"> {{ regulation.short_name }} </b-button>
+    <b-button class="button" variant="success" >COURSES<hr class="hr"> {{  regulation.program.specializations.length }} </b-button>
+    <b-button class="button" variant="success" >SEMESTERS<hr class="hr"> {{ regulation.semesters.length }} </b-button>
+    <b-button class="button" variant="success" >CREDITS<hr class="hr"> {{  regulation.total_credits }} </b-button>
+    <b-button class="button" variant="success" >SUBJECTS<hr class="hr"> {{ getNoOfSubjects() }} </b-button>
+    <b-button class="button" variant="success" >STUDENTS<hr class="hr"> {{  getNoOfStudents() }} </b-button>
+    <b-button class="button" variant="success" > LAUNCH YEAR<hr class="hr"> {{ regulation.start_year }} </b-button>
+    <b-button class="button" variant="success" > STATUS<hr class="hr"> {{ getRegulationEndYear() }} </b-button>
 
     </div>
     <div class="explore">
@@ -51,7 +52,7 @@
       <b-tabs v-model="tabIndex" content-class="mt-3" fill>
     <b-tab title="REGULATIONS" :title-link-class="linkClass(0)">
       <div v-if="selectedProgram && selectedRegulation">
-        <p>Regulations Tab</p><regulation :selectedProgram="selectedProgram"
+        <p>Regulations Tab</p><regulation :regulations="regulations" :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
        :program_id='program_id'  :regulation="regulation" 
        :programLevel="programLevel" :program_level="program_level" />
@@ -76,7 +77,7 @@
 </template>
 <script>
 import axios from 'axios'
-import Regulation from './RegulationTab'
+import RegulationTab from './RegulationTab'
 export default {
     data() {
       axios.get('http://127.0.0.1:8000/api/program_levels/')
@@ -84,48 +85,19 @@ export default {
   .catch(error => console.log(error));
       return {
         tabIndex: 0,
-        bordered: true,
         regulations: [],
-        program: '',
+        students: null,
         program_id: null,
         Program: '-',
         regulation : null,
         program_level:null,
         programLevel:{},
-        academicYearDuration:null,
-        getSemCount: null,
-        curriculuLength: null,
-        curriculumCategories:[],
         NoOfStudents: 2000,
         selectedProgram: null,
         selectedRegulationLabel: '',
         selectedRegulation: null,
-        fields: [
-          { key: 'Semester'},
-          { key: 'Total Credits'}
-        ],
-        explore_links: ['Exams', 'Schedules','Registrations', 'Attendance', 'Marks', 'Reports',],
-            activeTab: 'Exams',
-        courseList: [
-
-        ],
         selectedItem: '',
-        items:[
-               {sname: 1,name:'Nomenclature'},
-               {sname: 2,name:'Short Title And Application'},
-               {sname: 3,name:'Suspension And Amendment Of Rules'},
-               {sname: 4,name:'Requirements For Admission'},
-               {sname: 5,name:'Structure Of The B. Tech Course'},
-               {sname: 6,name:'Registration And Enrolment'},
-               {sname: 7,name:'Assessment Procedure – Internal Tests And End Examinations'},
-               {sname: 8,name:'Requirements For Completing Subjects'},
-               {sname: 9,name:'Requirements For Taking End Examinations And Promotion'},
-               {sname: 10,name:'Revaluation Of End Examination Scripts'},
-               {sname: 11,name:'Supplementary End Examinations'},
-               {sname: 12,name:'Requirements For Award Of B. Tech Degree'},
-               {sname: 13,name:'Transitory Regulations'}
-                
-            ],
+        subjects: null
     }
   },
   methods:{
@@ -136,13 +108,19 @@ export default {
           return ['bg-light', 'text-info']
         }
       },
-    getStudentCount(){},
-    getSemesterNames(){
-        for (var prop in this.regulation.semesters) {
-        console.log(this.regulation.semesters[prop])
-        }
-        console.log(this.regulation.semester)
+      getNoOfSubjects(){
+axios.get(`http://127.0.0.1:8000/api/subject/`)
+  .then(response =>this.subjects = response.data)
+  .catch(error => console.log(error));
+  return this.subjects.length
+      },
+    getNoOfStudents(){
+      axios.get(`http://127.0.0.1:8000/api/students/${this.selectedRegulation}`)
+  .then(response =>this.students = response.data)
+  .catch(error => console.log(error));
+  return this.students.length
     },
+    
     getRegulationEndYear(){
       if (this.regulation.end_year == null) {
         return 'InForce'
@@ -151,52 +129,7 @@ export default {
         return this.regulation.end_year
       }
     },
-    curriculumCount(){
-      if(this.regulation.short_name == 'R15UG' || this.regulation.short_name == 'R14UG'){
-        this.curriculumCategories = [
-          { sname:'BS',name:'Basic Science'},
-          { sname:'HS',name:'Humanities and Social Sciences'},
-          { sname:'ED',name:'Basic Engineering and Design'},
-          { sname:'PJ',name:'Professional Major'},
-          { sname:'PN',name:'Professional Minor'}
-        ]
-        return (this.curriculuLength = 'five')
-      }
-      else{
-        this.curriculumCategories = [
-          { sname:'BSc',name:'Basic Science'},
-          { sname:'HSMC',name:'Humanities and Social Sciences including Management Courses'},
-          { sname:'ESC',name:' Engineering Science Courses'},
-          { sname:'PCC',name:'Professional Core Course'},
-          { sname:'PEC',name:'Professional Elective Course'},
-          { sname:'OEC',name:'Open Elective Course'}
-        ]
-        return (this.curriculuLength = 'six')
-      }
-    },
-    getSemesterCredits(){
-      axios.get(`http://127.0.0.1:8000/api/credits/sp/${this.specialization_id}/${this.semester_id}`)
-      .then(response => this.credits = response.data)
-      .catch(error => console.log(error));
-      
-    },
-    getSemCounts(){
-      if(this.regulation.semesters.length == 8 || this.regulations.semesters.length == 7){
-        return this.getSemCount = 'Eight'
-      }
-      else{
-        return this.getSemCount = 'Four'
-      }
-    },
-    academicYears(program_level){
-      if(program_level == 1){
-        return this.academicYearDuration = 'four'
-      }
-      else{
-        return this.academicYearDuration ='two'
-      }
-
-    },
+    
   selectedPrograms(event){
     this.program_level = event
     if(this.program_level == 'UG'){
@@ -219,7 +152,7 @@ export default {
     },
   },
   components:{
-    'regulation' : Regulation
+    'regulation' : RegulationTab
   }
 }
 </script>
@@ -270,5 +203,4 @@ export default {
 .selectreg{
   margin-left: 20px;
 }
-
 </style>

@@ -11,7 +11,7 @@ export default new Router({
     { path: '/Notifications',  name: 'notifications',  component: ()=>import('./components/Marks.vue')},
     { path: '/Admin',name:'admin',component:()=>import('./components/Admin.vue')},
     { path: '/',name:'home',component: Home},
-    { path: '/regulations',name:'regulations',component:()=>import('./components/Regulations.vue')},
+    { path: '/academics',name:'academics',component:()=>import('./components/Academics.vue')},
     { path: '/Profile',name:'profile',component:()=>import('./components/Profile.vue') },
     { path: '/departments',name:'departments',component:()=>import('./components/Departments.vue') },
     { path: '/syllabus',name:'syllabus',component:()=>import('./components/Syllabus.vue') },
