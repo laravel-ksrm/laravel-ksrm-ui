@@ -91,19 +91,14 @@
           id="popover-target-1"
           class="nav-link "
           exact
-        ><img src="../assets/images/notification.jpg" style="border-radius: 80%;
-    width: 35px;
-    height: 30px; "><sup> {{ notificationCount}} </sup>
+        >
+        <b-icon icon="bell-fill" class="rounded-circle bg-light" style="width:28px;height:25px;" variant="info"></b-icon><sup> {{ notificationCount}} </sup>
                 </router-link>
           </li>
           <li class="nav-item avatar dropdown">
             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <img src="../assets/images/avatar.png" alt="avatar image" style="border-radius: 80%;
-
-    width: 35px;
-    height: 30px; ">
-            </a>
-            
+              
+            <b-avatar button src="https://placekitten.com/300/300" style="width:30px;height:28px;"></b-avatar></a>
             <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdownMenuLink-55">
               <li>
             <router-link

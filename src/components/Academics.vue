@@ -1,5 +1,5 @@
 <template>
-  <div id="regulations container">
+  <div id="container">
       <div id="selection">
         <b-form-select
       v-model="selectedProgram"
@@ -36,23 +36,35 @@
   <!--v-if="selectedRegulation&&selectedProgram"> -->
     <!-- <h1>Regulations data will appear here</h1> -->
     <div>
-    <b-button class="button" variant="success" >PROGRAM<hr class="hr"> {{ programLevel[program_level-1].short_name }} </b-button>
-    <b-button class="button" variant="success" >REGULATION<hr class="hr"> {{ regulation.short_name }} </b-button>
-    <b-button class="button" variant="success" >COURSES<hr class="hr"> {{  regulation.program.specializations.length }} </b-button>
-    <b-button class="button" variant="success" >SEMESTERS<hr class="hr"> {{ regulation.semesters.length }} </b-button>
-    <b-button class="button" variant="success" >CREDITS<hr class="hr"> {{  regulation.total_credits }} </b-button>
-    <b-button class="button" variant="success" >SUBJECTS<hr class="hr"> {{ getNoOfSubjects() }} </b-button>
-    <b-button class="button" variant="success" >STUDENTS<hr class="hr"> {{  getNoOfStudents() }} </b-button>
-    <b-button class="button" variant="success" > LAUNCH YEAR<hr class="hr"> {{ regulation.start_year }} </b-button>
-    <b-button class="button" variant="success" > STATUS<hr class="hr"> {{ getRegulationEndYear() }} </b-button>
+    <b-button class="button" variant="success" :pressed='true'>PROGRAM<hr class="hr"> {{ programLevel[program_level-1].short_name }} </b-button>
+    <b-button class="button" variant="success" :pressed='true'>REGULATION<hr class="hr"> {{ regulation.short_name }} </b-button>
+    <b-button class="button" variant="success" :pressed='true'>COURSES<hr class="hr"> {{  regulation.program.specializations.length }} </b-button>
+    <b-button class="button" variant="success" :pressed='true' >SEMESTERS<hr class="hr"> {{ regulation.semesters.length }} </b-button>
+    <b-button class="button" variant="success" :pressed='true' >CREDITS<hr class="hr"> {{  regulation.total_credits }} </b-button>
+    <b-button class="button" variant="success" :pressed='true' >SUBJECTS<hr class="hr"> {{ getNoOfSubjects() }} </b-button>
+    <b-button class="button" variant="success" :pressed='true'>STUDENTS<hr class="hr"> {{  getNoOfStudents() }} </b-button>
+    <b-button class="button" variant="success" :pressed='true'> LAUNCH YEAR<hr class="hr"> {{ regulation.start_year }} </b-button>
+    <b-button class="button" variant="success" :pressed='true'> STATUS<hr class="hr"> {{ getRegulationEndYear() }} </b-button>
 
     </div>
+    <div>
+      <ul class="demo">
+        <li class="liitem">Explore</li>
+        <li role="" v-for="(item) in items" :key="item">{{item}}<hr class="exploreList"> </li>
+      </ul>
+      {{item}}
+    </div>
+    <div v-if="itemselected ==1 ">
+      <regulation :regulations="regulations" :selectedProgram="selectedProgram"
+      :Program="Program" :selectedRegulation="selectedRegulation"
+       :program_id='program_id'  :regulation="regulation" 
+       :programLevel="programLevel" :program_level="program_level" />
+    </div>
     <div class="explore">
-      
-      <b-tabs v-model="tabIndex" content-class="mt-3" fill>
-    <b-tab title="REGULATIONS" :title-link-class="linkClass(0)">
+      <b-tabs  v-model="tabIndex" content-class="mt-3" fill>
+    <b-tab class="tab" title="REGULATIONS" :title-link-class="linkClass(0)">
       <div v-if="selectedProgram && selectedRegulation">
-        <p>Regulations Tab</p><regulation :regulations="regulations" :selectedProgram="selectedProgram"
+      <regulation :regulations="regulations" :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
        :program_id='program_id'  :regulation="regulation" 
        :programLevel="programLevel" :program_level="program_level" />
@@ -60,7 +72,15 @@
       <div v-else><p>No Matching Data Found.</p></div>
       
     </b-tab>
-    <b-tab title="SCHEME" :title-link-class="linkClass(1)">Scheme Tab</b-tab>
+    <b-tab title="SCHEME" :title-link-class="linkClass(1)">
+      <div v-if="selectedProgram && selectedRegulation">
+      <scheme :regulations="regulations" :selectedProgram="selectedProgram"
+      :Program="Program" :selectedRegulation="selectedRegulation"
+       :program_id='program_id'  :regulation="regulation" 
+       :programLevel="programLevel" :program_level="program_level"/>
+        </div>
+      <div v-else><p>No Matching Data Found.</p></div>
+    </b-tab>
     <b-tab title="SUBJECTS" :title-link-class="linkClass(2)"><p>Subject Tab</p></b-tab>
     
     <b-tab title="FEEDBACK" :title-link-class="linkClass(3)"><p>FeedBack Tab</p></b-tab>
@@ -78,12 +98,14 @@
 <script>
 import axios from 'axios'
 import RegulationTab from './RegulationTab'
+import SchemeTab from './SchemeTab'
 export default {
     data() {
       axios.get('http://127.0.0.1:8000/api/program_levels/')
   .then(response =>this.programLevel = response.data)
   .catch(error => console.log(error));
       return {
+        items:['regulations','scheme','subjects','feedback'],
         tabIndex: 0,
         regulations: [],
         students: null,
@@ -97,10 +119,16 @@ export default {
         selectedRegulationLabel: '',
         selectedRegulation: null,
         selectedItem: '',
-        subjects: null
+        subjects: null,
+        itemselected: null
     }
   },
   methods:{
+    explore(item){
+      this.itemselected = item,
+      this.item = ''
+
+    },
     linkClass(idx) {
         if (this.tabIndex === idx) {
           return ['bg-secondary', 'text-light']
@@ -152,14 +180,43 @@ axios.get(`http://127.0.0.1:8000/api/subject/`)
     },
   },
   components:{
-    'regulation' : RegulationTab
+    'regulation' : RegulationTab,
+    'scheme': SchemeTab,
+
   }
 }
 </script>
 <style>
+.liitem{
+  padding-left: 20px;
+  padding-top: 10px;
+}
+.exploreActive{
+  background-color: yellow;
+}
 #my-table{
   width: 50%;
 
+}
+.demo{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+.demo li{
+  color: white;
+  padding-top: 10px;
+  padding-left:10px;
+  padding-right: 10px;
+}
+.exploreList{
+margin-top: 0px;
+height: 2px;
+border-color: white;
+display: flex;
+flex-direction: left;
 }
 .explore{
   display: flex;
@@ -170,7 +227,7 @@ axios.get(`http://127.0.0.1:8000/api/subject/`)
   padding-left: 25px;
   padding-right: 25px;
 }
-
+ 
 #selection{
   margin-left: 25px;
   margin-right: 25px;
@@ -202,5 +259,10 @@ axios.get(`http://127.0.0.1:8000/api/subject/`)
 }
 .selectreg{
   margin-left: 20px;
+}
+#container{
+  background-color: #45536b;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 </style>

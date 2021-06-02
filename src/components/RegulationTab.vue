@@ -17,7 +17,7 @@
         <b-form-select-option :value= null disabled selected>Please select an Option</b-form-select-option>
       </template></b-form-select>
     <div v-if="selectedItem == 1">
-       <b> <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+       <b> <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <p style="text-align:left">
             <ol>
                 <li> <b>Academic Year: </b> Period of academic instruction of, approximately, one year
@@ -54,7 +54,7 @@ purpose of a scheduled academic instruction. </li>
         </p>
     </div>
     <div v-else-if="selectedItem == 2" >
-     <b> <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+     <b> <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
       <p style="text-align:left">
         <ol>
           <li>These rules and regulations may be called as {{ regulation.short_name  }} and come into force
@@ -76,7 +76,7 @@ regulations will be applicable.</li>
       </p>
     </div>
     <div v-else-if="selectedItem == 3">
-             <b> <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+             <b> <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <p style="text-align:left">
           <ol>
             <li>Academic Council has the authority to suspend a rule temporarily.</li>
@@ -88,7 +88,7 @@ Academic Council.</li>
         </p>
     </div>
     <div v-else-if="selectedItem == 4">
-          <b>  <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+          <b>  <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
             <p style="text-align:left">
               <ol>
                 <li>At present, admissions into first semester of various Specializations are
@@ -103,7 +103,7 @@ Affiliating University.</li>
             </p>
     </div>
     <div v-else-if="selectedItem == 5">
-     <b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+     <b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
             <p style="text-align:left">
               <ol>
                  <li><b>Duration:</b>  The duration of {{ regulation.program.name}} degree course is {{ getSemCounts() }} semesters spread
@@ -180,7 +180,7 @@ the student and decide on permitting the student for availing the gap-year. Gapy
             </p>
     </div>
     <div v-else-if="selectedItem == 6">
-      <b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+      <b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
       <p style="text-align:left">
         <ol>
           <li>Prior to opening of each semester, every student shall register for all the
@@ -209,7 +209,7 @@ of Examinations</li>
       </p>
     </div>
     <div v-else-if="selectedItem == 7">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left" v-if="regulation.short_name == 'R20UG'">
         <ol start='selectedItem'>
             <li>Performance of students in all subjects is assessed continuously through
@@ -543,7 +543,7 @@ reason, she or he shall be awarded zero marks in that subject</li>
         </div>
     </div>
     <div v-else-if="selectedItem == 8">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left">
             <ol>
                 <li>For all credit-bearing subjects, performance of a student in a subject is indicated by
@@ -589,7 +589,7 @@ credits, and letter grade earned. SGPA and CGPA will also be indicated.</li>
         </div>
     </div>
     <div v-else-if="selectedItem == 9">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left"  v-if="regulation.short_name == 'R20UG' || regulation.short_name == 'R18UG' || regulation.short_name == 'R18PG'">
             <ol>
                 <li>A student shall complete all credit-bearing and audit subjects successfully to
@@ -628,7 +628,7 @@ Grade card will list successfully completed self-study subjects.</li>
         </div>
     </div>
     <div v-else-if="selectedItem == 10">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left" v-if="regulation.short_name == 'R20UG' || regulation.short_name == 'R18UG'">
         <ol>
             <li>A student is eligible to take regular End Examinations of current semester if she or
@@ -781,7 +781,7 @@ commencement of the End examinations of the current term.</li></ol>
         </div>
     </div>
     <div v-else-if="selectedItem == 11">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left">
 <ol>
     <li>Revaluation of End Examination scripts is allowed for theory subjects only
@@ -794,7 +794,7 @@ examination marks will be awarded for that subject</li>
         </div>
     </div>
     <div v-else-if="selectedItem == 12">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left">
             <ol>
                 <li>Students are eligible to take Supplementary examinations in subjectswith fail
@@ -818,7 +818,7 @@ provisional/final degree
         </div>
     </div>
     <div v-else-if="selectedItem == 13">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left" v-if="regulation.short_name=='R15UG' || regulation.short_name=='R14UG' || regulation.short_name=='R14PG' || regulation.short_name=='R18PG'">
             <ol>
                 <li>Time Limit for completion of requirements for award of degree is {{getSemCounts()}}
@@ -968,7 +968,7 @@ candidature for minor degree.
         </div>
     </div>
     <div v-else-if="selectedItem == 14">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left">
         <ol>
             <li>A student who initially joins the Institute in a previous Regulation and has to rejoin in a semester of the present Regulations, due to any reason, shall be bound by
@@ -979,7 +979,7 @@ students who join the current Regulations.</li>
         </div>
     </div>
     <div v-else-if="selectedItem == 15">
-<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr></b>
+<b>   <p> {{ selectedItem }}. {{items[selectedItem-1].name}}</p> <hr class="line"></b>
         <div style="text-align:left" v-if="regulation.short_name=='R20UG'">
             <ol type="1" start="1">
                 <li><b> Title and application:</b> These rules and regulations may be called R20UG-LE and
@@ -1280,21 +1280,26 @@ export default {
   background-color: red;
   color: white;
 }
-.hr {
-  margin-left: 10px;
-  margin-top: 0em;
-  margin-bottom: 0em;
+.line {
+  margin-left: 2px;
+  margin-top: -10px;
+  margin-bottom: 10px;
   border-style: inset;
   height: 1.5px;
+  background-color: white;
+}
+.line:hover{
   background-color: yellow;
 }
 .b-form-select{
   margin-right: 20px;
   margin-left: 20px;
 }
-.selectreg{
-  margin-left: 20px;
+.select{
+  min-width:300px;
+  max-width: 500px;
 }
+
 .minus{
     width: 20px;
     background-color: black;
