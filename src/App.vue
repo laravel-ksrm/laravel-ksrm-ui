@@ -35,6 +35,7 @@ export default {
   text-align: center;
   margin-top: 0px;
   min-height: 100vh;
+  min-width: 400px;
   position: relative;
 }
 
@@ -51,5 +52,6 @@ export default {
 }
 #nav-bar{
   background-color: #2c3e50;
+  min-width: 500px;
 }
 </style>

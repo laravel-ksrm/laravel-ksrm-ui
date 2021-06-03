@@ -554,8 +554,8 @@ considered for awarding grades for credit bearing subjects. Total marks earned i
 subject is the sum of marks obtained in internal assessment and End examination
 in that subject.</li>
                 <li>Pass grade S to E is assigned to a subject based on total marks earned in that
-subject provided that a student earns at least i) 35% of marks in End examination,
-and ii) 40% of marks in internal assessment and End examination put together;
+subject provided that a student earns at least <br> i) 35% of marks in End examination,
+and <br> ii) 40% of marks in internal assessment and End examination put together;
 otherwise fail grade F will be assigned to that subject.
 </li>
                 <li>Grade I will be assigned to a subject if a disciplinary action is pending and is not
@@ -564,7 +564,18 @@ resolve the pending disciplinary action within six working days from the date of
 publication of results and change the grade to any of S to F.</li>
                 <li>Grade Ab will be assigned to a subject if a student abstains for End examination of
 that subject.</li>
-                <li>The absolute marks and corresponding letter grade and grade points are given in </li>
+                <li>The absolute marks and corresponding letter grade and grade points are given in the below tablle
+                    <b-table
+      id="gradesTable"
+      hover striped
+      :bordered="bordered"
+      :items="gradeTableValues"
+      :fields="gradeTableKeys"
+      :busy.sync= "isBusy"
+      responsive
+    ></b-table>
+                </li>
+
                 <li>SGPA: Semester Grade Point Average indicates the performance of a student in all
 credit-bearing subjects of a semester. SGPA is calculated as the weighted average of
 Grade Points of all subjects of the semester with corresponding credits of subjects
@@ -1064,8 +1075,9 @@ export default {
        ,'program_id'],
     data() {
       return {
-        semLength: this.regulation.semesters.length,
+        semLength: this.regulation.total_semesters,
         tabIndex: 0,
+        isBusy: false,
         bordered: true,
         program: '',
         academicYearDuration:null,
@@ -1179,21 +1191,6 @@ export default {
           return ['bg-light', 'text-info']
         }
       },
-    getStudentCount(){},
-    getSemesterNames(){
-        for (var prop in this.regulation.semesters) {
-        console.log(this.regulation.semesters[prop])
-        }
-        console.log(this.regulation.semester)
-    },
-    getRegulationEndYear(){
-      if (this.regulation.end_year == null) {
-        return 'InForce'
-      }
-      else{
-        return this.regulation.end_year
-      }
-    },
     curriculumCount(){
       if(this.regulation.short_name == 'R15UG' || this.regulation.short_name == 'R14UG'){
         this.curriculumCategories = [
@@ -1250,6 +1247,16 @@ export default {
 #regulations{
     max-width: 700px;
 }
+#gradesTable{
+    min-width: 300px;
+    align-items: center;
+    text-align: center;
+}
+#gradesTable tr :hover{
+    color: white;
+    background-color: rosybrown;
+}
+
 .creditsTable{
   width: 60%;
   margin-left: 80px;
