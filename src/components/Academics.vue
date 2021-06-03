@@ -49,7 +49,7 @@
     </div>
     <div class="explore">
       <b-tabs  v-model="tabIndex" content-class="mt-3" fill>
-    <b-tab class="tab" title="REGULATIONS" :title-link-class="linkClass(0)">
+    <b-tab title-item-class="tab" title="REGULATIONS" :title-link-class="linkClass(0)">
       <div>
       <RegulationTab :regulations="regulations" :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
@@ -59,7 +59,7 @@
       <!-- <div v-><p>No Matching Data Found.</p></div> -->
       
     </b-tab>
-    <b-tab title="SCHEME" :title-link-class="linkClass(1)">
+    <b-tab title-item-class="tab"  title="SCHEME" :title-link-class="linkClass(1)">
       <div>
       <SchemeTab :regulations="regulations" :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
@@ -68,9 +68,9 @@
         </div>
       <!-- <div v-else><p>No Matching Data Found.</p></div> -->
     </b-tab>
-    <b-tab title="SUBJECTS" :title-link-class="linkClass(2)"><p>Subject Tab</p></b-tab>
+    <b-tab title-item-class="tab" title="SUBJECTS" :title-link-class="linkClass(2)"><p>Subject Tab</p></b-tab>
     
-    <b-tab title="FEEDBACK" :title-link-class="linkClass(3)"><p>FeedBack Tab</p></b-tab>
+    <b-tab title-item-class="tab" title="FEEDBACK" :title-link-class="linkClass(3)"><p>FeedBack Tab</p></b-tab>
   </b-tabs>
     </div>
     
@@ -123,7 +123,7 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
   methods:{
     linkClass(idx) {
         if (this.tabIndex === idx) {
-          return ['bg-secondary', 'text-light']
+          return ['bg-dark', 'text-light']
         } else {
           return ['bg-light', 'text-info']
         }
@@ -175,6 +175,11 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
 }
 </script>
 <style>
+.tab{
+  margin-right: 5px;
+  margin-left: 5px;
+
+}
 .liitem{
   padding-left: 20px;
   padding-top: 10px;

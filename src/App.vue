@@ -42,7 +42,7 @@ export default {
 #footer {
   margin-top: auto;
   flex-shrink: 0;
-  position:fixed;
+  position:absolute;
   left: 0px;
   right: 0px;
   bottom:0px;
