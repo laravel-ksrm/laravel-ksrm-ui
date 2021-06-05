@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <p></p>
       <div id="selection">
         <b-form-select
       v-model="selectedProgram"
@@ -45,7 +46,6 @@
     <b-button class="button" variant="success" :pressed='true'>STUDENTS<hr class="hr"> {{  getNoOfStudents() }} </b-button>
     <b-button class="button" variant="success" :pressed='true'> LAUNCH YEAR<hr class="hr"> {{ regulation.start_year }} </b-button>
     <b-button class="button" variant="success" :pressed='true'> STATUS<hr class="hr"> {{ getRegulationEndYear() }} </b-button>
-
     </div>
     <div class="explore">
       <b-tabs  v-model="tabIndex" content-class="mt-3" fill>
@@ -64,12 +64,13 @@
       <SchemeTab :regulations="regulations" :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
        :program_id='program_id'  :regulation="regulation" 
-       :programLevel="programLevel" :program_level="program_level"/>
+       :programLevel="programLevel" :program_level="program_level"
+       :specializations="specializations" :students="students" :semesters="semesters"/>
         </div>
       <!-- <div v-else><p>No Matching Data Found.</p></div> -->
     </b-tab>
-    <b-tab title-item-class="tab" title="SUBJECTS" :title-link-class="linkClass(2)"><p>Subject Tab</p></b-tab>
-    
+    <b-tab title-item-class="tab" title="SUBJECTS" :title-link-class="linkClass(2)"><p>Subject Tab</p>
+    <SubTab/></b-tab>
     <b-tab title-item-class="tab" title="FEEDBACK" :title-link-class="linkClass(3)"><p>FeedBack Tab</p></b-tab>
   </b-tabs>
     </div>
@@ -86,6 +87,7 @@
 import axios from 'axios'
 import RegulationTab from './RegulationTab'
 import SchemeTab from './SchemeTab'
+import SubTab from './SubTab'
 export default {
   created(){
 axios.get('http://127.0.0.1:8000/api/program_levels/')
@@ -115,8 +117,9 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
         selectedRegulationLabel: '',
         selectedRegulation: null,
         subjects: [],
+        semesters:[],
         selectedItem:'',
-        specializations:[],
+        specializations:{},
         itemselected: null
     }
   },
@@ -125,7 +128,7 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
         if (this.tabIndex === idx) {
           return ['bg-dark', 'text-light']
         } else {
-          return ['bg-light', 'text-info']
+          return ['bg-light', 'text-dark']
         }
       },
      getNoOfStudents(){
@@ -166,11 +169,14 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
   axios.get(`http://127.0.0.1:8000/api/regulations/${this.selectedRegulation}/specializations`)
   .then(response =>this.specializations = response.data)
   .catch(error => console.log(error));
+  axios.get(`http://127.0.0.1:8000/api/regulations/${this.selectedRegulation}/semesters`)
+  .then(response =>this.semesters = response.data)
+  .catch(error => console.log(error));
+  
     },
   },
   components:{
-    RegulationTab, SchemeTab,
-
+    RegulationTab, SchemeTab,SubTab
   },
 }
 </script>
@@ -178,7 +184,8 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
 .tab{
   margin-right: 5px;
   margin-left: 5px;
-
+  width: 140px;
+  margin-top: 5px;
 }
 .liitem{
   padding-left: 20px;
@@ -258,5 +265,6 @@ flex-direction: left;
   margin-left: 40px;
   margin-right: 40px;
   min-width: 400px;
+  margin: 50px;
 }
 </style>

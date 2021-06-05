@@ -1,10 +1,11 @@
 <template>
 <div id="regulations">
     
-        <div id="title"><b>
+        <div id="title">
+            <p style="color : yellow;">
             KSRM College of Engineering (Autonomuos), Kadapa-516003, AP <br>
                                 {{ regulation.name }} ( {{regulation.short_name}} ) <br>
-                            (Effective from {{regulation.start_year}}) </b>
+                            (Effective from {{regulation.start_year}}) </p>
                             <br>
             <b-form-select
       v-model="selectedItem"
@@ -1084,7 +1085,6 @@ export default {
         getSemCount: null,
         curriculuLength: null,
         curriculumCategories:[],
-        NoOfStudents: 2000,
         selectedItem: '',
         creedits_table:[
             { key: 'Semester'},
@@ -1218,7 +1218,6 @@ export default {
       axios.get(`http://127.0.0.1:8000/api/credits/sp/${this.specialization_id}/${this.semester_id}`)
       .then(response => this.credits = response.data)
       .catch(error => console.log(error));
-      
     },
     getSemCounts($semLength){
       if($semLength == 8 || $semLength == 7){

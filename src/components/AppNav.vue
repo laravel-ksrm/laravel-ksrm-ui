@@ -31,7 +31,7 @@
           class="dropdown-item waves-effect waves-light"
           active-class="active"
           exact
-        >Regulations</router-link>
+        >Academics</router-link>
           </li><b-dropdown-divider></b-dropdown-divider>
           <li class="nav-item">
             <router-link

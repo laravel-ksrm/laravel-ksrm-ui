@@ -42,7 +42,9 @@ export default {
 #footer {
   margin-top: auto;
   flex-shrink: 0;
-  position:absolute;
+  position:fixed;
+  padding-top: 5px;
+  margin-top: 50px;
   left: 0px;
   right: 0px;
   bottom:0px;
@@ -52,6 +54,5 @@ export default {
 }
 #nav-bar{
   background-color: #2c3e50;
-  min-width: 500px;
 }
 </style>
