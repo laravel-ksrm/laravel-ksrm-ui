@@ -14,7 +14,7 @@
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item">
             <router-link
-          to= null
+          to= '/'
           class="nav-link"
           active-class="active"
           exact
@@ -92,7 +92,7 @@
           class="nav-link "
           exact
         >
-        <b-icon icon="bell-fill" class="rounded-circle bg-light" style="width:28px;height:25px;" variant="info"></b-icon><sup> {{ notificationCount}} </sup>
+        <b-icon icon="bell-fill" class="rounded-circle border border-light p-1" style="width:28px;height:25px;" variant="info"></b-icon><sup> {{ notificationCount}} </sup>
                 </router-link>
           </li>
           <li class="nav-item avatar dropdown">

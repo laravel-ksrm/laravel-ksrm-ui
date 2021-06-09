@@ -1184,13 +1184,6 @@ export default {
     }
   },
   methods:{
-    linkClass(idx) {
-        if (this.tabIndex === idx) {
-          return ['bg-danger', 'text-light']
-        } else {
-          return ['bg-light', 'text-info']
-        }
-      },
     curriculumCount(){
       if(this.regulation.short_name == 'R15UG' || this.regulation.short_name == 'R14UG'){
         this.curriculumCategories = [
@@ -1243,11 +1236,9 @@ export default {
 }
 </script>
 <style>
-#regulations{
-    max-width: 700px;
-}
 #gradesTable{
     min-width: 300px;
+    max-width: 500px;
     align-items: center;
     text-align: center;
 }

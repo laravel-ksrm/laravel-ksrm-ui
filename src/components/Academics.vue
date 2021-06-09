@@ -47,40 +47,49 @@
     <b-button class="button" variant="success" :pressed='true'> LAUNCH YEAR<hr class="hr"> {{ regulation.start_year }} </b-button>
     <b-button class="button" variant="success" :pressed='true'> STATUS<hr class="hr"> {{ getRegulationEndYear() }} </b-button>
     </div>
-    <div class="explore">
-      <b-tabs  v-model="tabIndex" content-class="mt-3" fill>
-    <b-tab title-item-class="tab" title="REGULATIONS" :title-link-class="linkClass(0)">
-      <div>
+    <div>
+      <div class="explor pt-4 text-uppercase">
+        <div>
+          <div class="pl-4"> <a href="#regulations" @click.prevent = "setActive('regulations')" :class="{ active: isActive('regulations')}">Regulations <hr class="hrtab"></a> </div>
+          <div class="pl-4 pr-4"> <a href="#scheme" @click.prevent = "setActive('scheme')" :class="{ active: isActive('scheme')}">scheme <hr class="hrtab"></a> </div>
+          <div class="pl-4 pr-4"> <a href="#subjects" @click.prevent = "setActive('subjects')" :class="{ active: isActive('subjects')}">subjects <hr class="hrtab"></a> </div>
+          <div class="pl-4 pr-4"> <a href="#feedback" @click.prevent = "setActive('feedback')" :class="{ active: isActive('feedback')}">feedback <hr class="hrtab"></a> </div>
+          
+        </div>
+      </div>
+      <div class="tab-content py-3" id="myTabContent">
+      <div class="tab-pane fade" :class="{ 'active show': isActive('regulations')}" id="regulations">
+        <div id="regulations">
       <RegulationTab :regulations="regulations" :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
        :program_id='program_id'  :regulation="regulation" 
        :programLevel="programLevel" :program_level="program_level"/>
         </div>
-      <!-- <div v-><p>No Matching Data Found.</p></div> -->
-      
-    </b-tab>
-    <b-tab title-item-class="tab"  title="SCHEME" :title-link-class="linkClass(1)">
-      <div>
+        </div>
+      <div class="tab-pane fade" :class="{ 'active show': isActive('scheme') }" id="scheme">
+   <div>
       <SchemeTab :regulations="regulations" :selectedProgram="selectedProgram"
       :Program="Program" :selectedRegulation="selectedRegulation"
        :program_id='program_id'  :regulation="regulation" 
        :programLevel="programLevel" :program_level="program_level"
        :specializations="specializations" :students="students" :semesters="semesters"/>
         </div>
-      <!-- <div v-else><p>No Matching Data Found.</p></div> -->
-    </b-tab>
-    <b-tab title-item-class="tab" title="SUBJECTS" :title-link-class="linkClass(2)"><p>Subject Tab</p>
-    <SubTab/></b-tab>
-    <b-tab title-item-class="tab" title="FEEDBACK" :title-link-class="linkClass(3)"><p>FeedBack Tab</p></b-tab>
-  </b-tabs>
+   </div>
+      <div class="tab-pane fade" :class="{ 'active show': isActive('subjects') }" id="subjects">
+        <SubTab :regulations="regulations" :selectedProgram="selectedProgram"
+      :Program="Program" :selectedRegulation="selectedRegulation"
+       :program_id='program_id'  :regulation="regulation" 
+       :programLevel="programLevel" :program_level="program_level"
+       :specializations="specializations" :students="students" :semesters="semesters"/>
+      </div>
+      <div class="tab-pane fade" :class="{ 'active show': isActive('feedback') }" id="feedback">
+      feedback tab</div>
+    </div>
     </div>
     
     <br>
 
     </div>
-    
-    <!-- <p>{{ getTotalCredits($specialization_id,$semester_id)}}</p> -->
- <!-- <p> {{getSemesterNames()}} </p> -->
   </div>
 </template>
 <script>
@@ -103,7 +112,7 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
       
       return {
         items:['regulations','scheme','subjects','feedback'],
-        tabIndex: 0,
+        activeItem: 'regulations',
         regulations: [],
         students: [],
         depLength: null,
@@ -124,13 +133,13 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
     }
   },
   methods:{
-    linkClass(idx) {
-        if (this.tabIndex === idx) {
-          return ['bg-dark', 'text-light']
-        } else {
-          return ['bg-light', 'text-dark']
-        }
-      },
+
+    isActive (menuItem) {
+      return this.activeItem === menuItem
+    },
+    setActive (menuItem) {
+      this.activeItem = menuItem
+    },
      getNoOfStudents(){
        return this.students.length
     },
@@ -176,16 +185,40 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
     },
   },
   components:{
-    RegulationTab, SchemeTab,SubTab
+    RegulationTab, SchemeTab, SubTab,
   },
 }
 </script>
 <style>
+.explor div a{
+  color: white;
+  text-align: right;
+
+}
+.explor div a:hover{
+  text-decoration: none;
+  color: white;
+}
+.explor div{
+  display: flex;
+  justify-content: center;
+}
+.regTab{
+  display: flex;
+  align-content: center;
+}
+.exploreTabs{
+  align-items: center;
+  display: flex;
+  justify-items: center;
+}
 .tab{
-  margin-right: 5px;
-  margin-left: 5px;
-  width: 140px;
+  /* margin-right: 5px; */
+  margin-left: 10px;
   margin-top: 5px;
+  max-width: 140px;
+  display:inline-block;
+
 }
 .liitem{
   padding-left: 20px;
@@ -211,21 +244,12 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
   padding-left:10px;
   padding-right: 10px;
 }
-.exploreList{
-margin-top: 0px;
-height: 2px;
-border-color: white;
-display: flex;
-flex-direction: left;
-}
 .explore{
-  display: flex;
   justify-content: center;
-  align-items: center;
+  display: flex;
   color: black;
-  padding-top: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-top: 20px;
+  
 }
  
 #selection{
@@ -239,7 +263,7 @@ flex-direction: left;
   margin-right:10px;
   margin-left: 10px;
   margin-top: 10px;
-  width:140px ;
+  width:130px ;
 }
 .button :hover{
   background-color: red;
@@ -253,6 +277,12 @@ flex-direction: left;
   height: 1.5px;
   background-color: yellow;
 }
+.hrtab{
+  height: 1.2px;
+  background-color: brown;
+  margin-top: 0em;
+  width: 130px;
+}
 .b-form-select{
   margin-right: 20px;
   margin-left: 20px;
@@ -261,10 +291,11 @@ flex-direction: left;
   margin-left: 20px;
 }
 #container{
+  
   background-color: #45536b;
   margin-left: 40px;
   margin-right: 40px;
   min-width: 400px;
-  margin: 50px;
+  
 }
 </style>
