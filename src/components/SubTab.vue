@@ -53,8 +53,9 @@
                             <path class="down" v-if="!showSyllabus" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     <transition name="slide-fade">
-                        <div v-html="this.syllabus" v-show="showSyllabus" class="mt-3 text-white">
+                        <div v-if="syllabus" v-html="this.syllabus" v-show="showSyllabus" class="mt-3 text-white">
                         </div>
+                        <div v-else v-show="showSyllabus" class="mt-3"> Not Found </div>
                     </transition>
                         </b-card-text>
                     </b-card>                    
@@ -116,10 +117,7 @@
                                                 <p>Email:</p>
                                              </b-col>
                                              <b-col class="col-10">
-                                               <b-form-input v-model="email" name="email" :state="emailValidator" trim aria-describedby="input-live-help input-live-feedback"  type="email" id="email" placeholder="example@ksrmce.ac.in" required ></b-form-input>
-                                             <b-form-invalid-feedback id="input-live-feedback">
-                                                 Enter Valid Email
-                                                </b-form-invalid-feedback>
+                                               <b-form-input v-model="email" name="email" :state="emailValidator" trim  type="email" id="email" placeholder="example@ksrmce.ac.in" required ></b-form-input>
                                                              </b-col>
                                                           </b-row>
                                                           <b-row class="pt-3">
@@ -182,6 +180,26 @@ export default {
         .catch(error => console.log(error));
     },
     methods:{
+            addRating(context) {
+      return new Promise((resolve, reject) => {
+        axios.post('/subjects/' + this.selectedSub + '/ratings', {
+          author_email: this.email,
+          stars: this.exportRating,
+          comment: this.comment
+        })
+        .then(response => {
+          context.commit('appendSubjectRating', response.data)
+          resolve(response)
+        })
+        .catch(error => {
+          if (error.response) {
+            reject(error.response.data)
+          } else {
+            reject(error.message)
+          }
+        })
+      }
+    )},
         getSyllabus(event){
             this.selectedSub = event,
             axios.get(`http://127.0.0.1:8000/api/subjects/${this.selectedSub}/syllabus`)
@@ -208,8 +226,10 @@ export default {
             hodEmail:null,
             officeEmail: null,
             instruction:null,
-            rating: null,
+            exportRating: null,
             departments:null,
+            email: '',
+            comment: '',
             value: 3,
             ratingCount: 10,
             showSyllabus: true,
@@ -218,7 +238,6 @@ export default {
             showPerformance: true,
             showContact: true,
             visible:true,
-            exportRating:null
         }
     },
     
@@ -245,7 +264,8 @@ export default {
     background-color: #bcbcbc;
 }
 .Subrating{
-  background-color: #45536b;
+  background-color: #45536b !important;
+
 
 }
 .exportRating{

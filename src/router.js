@@ -17,5 +17,7 @@ export default new Router({
     { path: '/syllabus',name:'syllabus',component:()=>import('./components/Syllabus.vue') },
     { path: '/batchmates', name:'batchmates',component:()=>import('./components/BatchMates.vue')},
     { path: '/results', name:'results',component:()=>import('./components/Results.vue')},
+    { path: '/forgotPassword', name:'forgot',component:()=>import('./components/forgot.vue')},
+
   ]
   })

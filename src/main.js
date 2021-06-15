@@ -12,7 +12,8 @@ import 'jquery/dist/jquery.min.js'
 import router from './router'
 
 import store from './script'
-
+import Particles from 'particles.vue'
+Vue.use(Particles);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
