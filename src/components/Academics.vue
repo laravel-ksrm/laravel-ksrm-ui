@@ -193,11 +193,12 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
 .explor div a{
   color: white;
   text-align: right;
-
+font-family: "Times New Roman", Times, serif;
 }
 .explor div a:hover{
   text-decoration: none;
   color: white;
+  
 }
 .explor div{
   display: flex;
@@ -291,7 +292,6 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
   margin-left: 20px;
 }
 #container{
-  
   background-color: #45536b;
   margin-left: 40px;
   margin-right: 40px;

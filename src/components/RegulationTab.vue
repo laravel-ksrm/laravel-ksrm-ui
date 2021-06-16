@@ -1,8 +1,8 @@
 <template>
-<div id="regulations">
+<div class="regTabWindow">
     
-        <div id="title">
-            <p style="color : yellow;">
+        <div>
+            <p class="regTitle">
             KSRM College of Engineering (Autonomuos), Kadapa-516003, AP <br>
                                 {{ regulation.name }} ( {{regulation.short_name}} ) <br>
                             (Effective from {{regulation.start_year}}) </p>
@@ -1236,6 +1236,14 @@ export default {
 }
 </script>
 <style>
+.regTabWindow{
+    font-family: "Times New Roman", Times, serif;
+}
+.regTitle{
+    font-family: "Times New Roman", Times, serif;
+    color: yellow;
+    font-size: 120%;
+}
 #gradesTable{
     min-width: 300px;
     max-width: 500px;
@@ -1265,21 +1273,11 @@ export default {
   margin-right: 25px;
   padding-top: 10px;
 }
-.button{
-  font-size:small;
-  padding-left: 2px;
-  margin-right:10px;
-  margin-left: 10px;
-  margin-top: 10px;
-  width:140px ;
-}
-.button :hover{
-  background-color: red;
-  color: white;
-}
+
 .line {
-  margin-left: 2px;
+  margin-left: 5px;
   margin-top: -10px;
+  margin-right: 5px;
   margin-bottom: 10px;
   border-style: inset;
   height: 1.5px;

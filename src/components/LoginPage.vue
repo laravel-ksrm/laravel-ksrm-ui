@@ -1,13 +1,13 @@
 <template>
-  <div id='particles-js'>
+  <div id='particles-js' class="login_page">
     <div id="title">
-			<p class="text-uppercase title">k.s.r.m college of engineering
+			<h2 class="text-uppercase">k.s.r.m college of engineering
         <br>(autonomous) <br>kadapa-516003, a.p, india
 
-      </p>
+      </h2>
     </div>
       <div class="form-container sign-in-container"  v-if="show">
-		<b-form  @submit="onSubmit">
+		<b-form  @submit="onSubmit" @reset="resetLoginForm">
 			<p  class="text-dark text-uppercase signin">Sign in</p>
 
 			<div class="social-container">
@@ -19,13 +19,12 @@
       <b-form-group
         id="input-group-1"
         label-for="input-1"
-        description="We'll never share your email with anyone else."
       >
         <b-form-input
           id="input-1"
           v-model="signin.username"
           class="mb-0"
-          placeholder="username or Reg No"
+          placeholder="Username or Reg No"
           required
         ></b-form-input>
       </b-form-group>      
@@ -39,11 +38,10 @@
           required
         ></b-form-input>
       </b-form-group>
-			<router-link
-          to= '/forgotPassword'
-          class="mt-0"
-          exact
-        >Forgot your password?</router-link>
+      <div>
+        <a href="#forgotPassword" @click="forgotPasswordActive">Forgot your password ?</a>
+      </div>
+			
 			<button>Sign In</button>
       <p class="mt-2">Need an account?<a href="#signup" @click="signupActive"> Sign Up</a></p>
      
@@ -78,16 +76,15 @@
           id="input-2"
           v-model="signup.email"
           type="email"
-          class="mb-0"
+          class="mb-0 mt-0"
           placeholder="Email"
           required
         ></b-form-input>
       </b-form-group>      
       <b-form-group id="input-group-3" 
       label-for="input-3"
-      class="text-left"
-      description="Passwords must contain both uppercase and lowercase characters (a-z and A-Z) and at least one number (e.g., 0-9)."
-      >
+      class="text-left "
+            >
         <b-form-input
           id="input-3"
           class="mb-0 mt-0"
@@ -105,9 +102,42 @@
           required
         ></b-form-input>
       </b-form-group>
+      <b-form-group v-if="signup.password != signup.confirmPassword"
+       id="input-group-4" label-for="input-4"
+       class="text-warning"
+       description="Both Password and confirm Password should match.">
+      </b-form-group>
+
 			<button>Sign In</button>
       <p class="mt-2">Already an account?<a href="#login" @click="loginActive"> Sign In</a></p>
      
+		</b-form>    
+    </div>
+  </div>
+  <div id="forgotPassword" v-if="forgotPassword">
+    <div class="form-container sign-up-container">
+<b-form  @submit="onSubmitRegister">
+			<p  class="text-dark text-uppercase signup">Forgot Password</p>
+      <p class="text-light">Enter your Username or Email address to reset your password</p>
+
+      <b-form-group
+        id="input-group-1"
+        label-for="input-1"
+        class="text-left mt-0"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="signup.name"
+          type="name"
+          class="mb-0"
+          placeholder="Enter your Username or Email"
+          required
+        ></b-form-input>
+      </b-form-group>
+      
+			<button>Reset password</button>
+      <p class="mt-2 mb-0">Remember your password ?<a href="#login" @click="loginActive"> Sign In</a></p>
+      <p>Need an account ?<a href="#signup" @click="signupActive"> Sign Up</a></p>
 		</b-form>    
     </div>
   </div>
@@ -116,8 +146,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
+  
   name: 'LoginPage',
   data(){
     return{
@@ -134,7 +165,9 @@ signin: {
           confirmPassword: ''
         },
         show: true,
-        showSignup: false
+        showSignup: false,
+        forgotPassword: false
+        
     }
   },
 
@@ -149,17 +182,25 @@ signin: {
     onSubmitRegister(event){
         event.preventDefault()
         alert(JSON.stringify(this.signup))
-        
-        
+    },
+    resetLoginForm(){
+      this.username = '',
+      this.password = ''
     },
     signupActive(){
       this.show = false,
-      this.showSignup = true
+      this.showSignup = true,
+      this.resetLoginForm()
     },
     loginActive(){
       this.show = true,
       this.showSignup = false
 
+    },
+    forgotPasswordActive(){
+      this.show = false,
+      this.showSignup = false,
+      this.forgotPassword = true
     },
     initParticlesJS () {
       /* eslint-disable */
@@ -277,14 +318,7 @@ signin: {
     onSubmit(event) {
         event.preventDefault()
         alert(JSON.stringify(this.signin))
-        axios({
-  method: 'post',
-  url: 'http://127.0.0.1:8000/api/login',
-  data: {
-    username: this.signin.username ,
-    password: this.signin.password
-  }
-});
+        
       }
   }
 
@@ -294,13 +328,19 @@ signin: {
 <style>
 /* Your styles */
 .signin{
-  margin-top: 120px;
+  padding-top: 80px;
 }
 .signup{
   margin-top: 120px;
 }
-.title{
-  font-size: 30px;
+.login_page{
+  font-family: "Times New Roman", Times, serif;
+
+}
+#title{
+  position: absolute;
+  width: 100%;
+  margin-top: 5px;
   font-weight: bolder;
   font-family: "Times New Roman", Times, serif;
   color: yellow;
@@ -371,10 +411,7 @@ input {
   align-content: center;
 	height: 100%;
 }
-#title{
-  width: 100%;
-  position: absolute;
-}
+
 .sign-in-container {
   
 	width: 50%;
