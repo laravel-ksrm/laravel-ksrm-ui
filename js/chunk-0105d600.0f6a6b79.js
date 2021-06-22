@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-0105d600"],{2424:function(t,e,n){"use strict";n("7abf")},"7abf":function(t,e,n){},e844:function(t,e,n){"use strict";n.r(e);var s=function(){var t=this,e=t.$createElement;t._self._c;return t._m(0)},a=[function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{attrs:{id:"syllabus"}},[n("p",[t._v("This is Syllabus page")])])}],c={},u=c,i=(n("2424"),n("2877")),r=Object(i["a"])(u,s,a,!1,null,"8c0193a0",null);e["default"]=r.exports}}]);
+//# sourceMappingURL=chunk-0105d600.0f6a6b79.js.map

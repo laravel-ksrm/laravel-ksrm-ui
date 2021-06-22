@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-590180d1"],{"56bc":function(t,e,n){},d9bb:function(t,e,n){"use strict";n.r(e);var c=function(){var t=this,e=t.$createElement;t._self._c;return t._m(0)},i=[function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{attrs:{id:"Notifications"}},[n("p",[t._v("This is forgot Password Page")])])}],s={},r=s,o=(n("e4b8"),n("2877")),a=Object(o["a"])(r,c,i,!1,null,"8c7b20a2",null);e["default"]=a.exports},e4b8:function(t,e,n){"use strict";n("56bc")}}]);
+//# sourceMappingURL=chunk-590180d1.65d8875b.js.map
