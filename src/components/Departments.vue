@@ -1,15 +1,22 @@
+
 <template>
-  <div id="departments">
-    <p>This is departments page</p>
+  <div>
+    <div class="container">
+      <div class="Chart__list">
+        <div class="Chart">
+          <h2>Linechart</h2>
+          <line-example></line-example>
+        </div>
+      </div>
+    </div>
   </div>
-  
 </template>
 
 <script>
-export default {}
-</script>
-<style scoped>
-#departments{
-  background-color: white;
+import LineExample from './Chart.js'
+export default {
+  components: {
+    LineExample
+  }
 }
-</style>
+</script>

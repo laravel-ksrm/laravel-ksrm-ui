@@ -138,8 +138,11 @@
 			<button>Reset password</button>
       <p class="mt-2 mb-0">Remember your password ?<a href="#login" @click="loginActive"> Sign In</a></p>
       <p>Need an account ?<a href="#signup" @click="signupActive"> Sign Up</a></p>
-		</b-form>    
+		</b-form>     
     </div>
+  </div>
+  <div v-if="islogin">
+this is home page
   </div>
   </div>
   
@@ -152,7 +155,7 @@ export default {
   name: 'LoginPage',
   data(){
     return{
-      dismissCountDown: 0,
+      islogin: false,
 signin: {
           username: '',
           password: '',
@@ -188,11 +191,13 @@ signin: {
       this.password = ''
     },
     signupActive(){
+      this.forgotPassword = false,
       this.show = false,
       this.showSignup = true,
       this.resetLoginForm()
     },
     loginActive(){
+      this.forgotPassword = false,
       this.show = true,
       this.showSignup = false
 

@@ -1,40 +1,40 @@
 <template>
     <div class="subjects">
         <div class="row">
-        <div class=" text-left col-md-2 col-lg-1 text-light offset-lg-2 offset-md-1 pt-2">Subject: </div>
+        <div class=" text-left col-md-2 col-lg-1 text-   offset-lg-2 offset-md-1 pt-2">Subject: </div>
         <b-form-select  class="col-md-5 col-lg-5 " v-if="subjects"  @change="getSyllabus($event)"  v-model="selectedSub" disabled-field="notEnabled" :options="subjects" value-field="id" text-field="name"><template v-slot:first><b-form-select-option :value= null disabled selected>Please select a Subject</b-form-select-option></template></b-form-select>
-        <div v-else class="text-light  pt-2">Not Found</div>
+        <div v-else class="  pt-2">Not Found</div>
         </div>
         
         <div v-if="selectedSub" class="pt-3">
             <div class="text-left row">
                 <div class="col-2 offset-md-3">CODE</div>
-                <div class="col-2 text-uppercase text-light">{{ subjects ? subjects[selectedSub-1].code : "Not found"}}</div>
+                <div class="col-2 text-uppercase ">{{ subjects ? subjects[selectedSub-1].code : "Not found"}}</div>
 
             </div>
             <div class="text-left row">
                 <div class="col-2 offset-md-3">DEPARTMENT</div>
-                <div class="col-5 text-uppercase text-light">{{ departments ?  departments.name : "Not found"}}</div>
+                <div class="col-5 text-uppercase">{{ departments ?  departments.name : "Not found"}}</div>
 
             </div>
             <div class="text-left row">
                 <div class="col-2 offset-md-3">OFFICE EMAIL</div>
-                <div class="col-2  text-uppercase text-light" >{{ departments ? departments.office_email : "Not found"}}</div>
+                <div class="col-2  text-uppercase " >{{ departments ? departments.office_email : "Not found"}}</div>
 
             </div>
             <div class="text-left row">
                 <div class="col-2 offset-md-3">HOD EMAIL</div>
-                <div class="col-3 text-uppercase text-light">{{ departments ? departments.hod_email: "Not found"}}</div>
+                <div class="col-3 text-uppercase ">{{ departments ? departments.hod_email: "Not found"}}</div>
 
             </div>
             <div class="text-left row">
                 <div class="col-2 offset-md-3">INSTRUCTION</div>
-                <div class="col-3 text-uppercase text-light">{{ subjects ? (subjects[selectedSub-1].is_theory ? 'Theory' : '') + '' + (subjects[selectedSub-1].is_lab ? 'Laboratory' : '') + '' + (subjects[selectedSub-1].is_project ? 'Project' : '') : "Not found"}}</div>
+                <div class="col-3 text-uppercase ">{{ subjects ? (subjects[selectedSub-1].is_theory ? 'Theory' : '') + '' + (subjects[selectedSub-1].is_lab ? 'Laboratory' : '') + '' + (subjects[selectedSub-1].is_project ? 'Project' : '') : "Not found"}}</div>
 
             </div>
             <div class="text-left row">
                 <div class="col-2 offset-md-3">RATING</div>
-                <b-form-rating  class="Subrating col-2 text-light" v-model="value" readonly no-border size="sm" variant="warning" color="white"></b-form-rating>
+                <b-form-rating  class="Subrating col-2 " v-model="value" readonly no-border size="sm" variant="warning" color="white"></b-form-rating>
                 <div><p class="pt-1 pr-4">{{ratingCount}} reviews</p> </div>
             </div>
             <div class="row offset-md-3 exploreSyllabus">
@@ -53,7 +53,7 @@
                             <path class="down" v-if="!showSyllabus" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     <transition name="slide-fade">
-                        <div v-if="syllabus" v-html="this.syllabus" v-show="showSyllabus" class="mt-3 text-white">
+                        <div v-if="syllabus" v-html="this.syllabus" v-show="showSyllabus" class="mt-3 text-dark">
                         </div>
                         <div v-else v-show="showSyllabus" class="mt-3"> Not Found </div>
                     </transition>
@@ -71,7 +71,7 @@
                             <path class="down" v-if="!showResources" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     <transition name="slide-fade">
-                        <div v-show="showResources" class="mt-3 text-white">
+                        <div v-show="showResources" class="mt-3 text-dark">
                        <p> Resources here</p>
                         </div>
                     </transition>
@@ -89,7 +89,7 @@
                             <path class="down" v-if="!showPerformance" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     <transition name="slide-fade">
-                        <div v-show="showPerformance" class="mt-3 text-white">
+                        <div v-show="showPerformance" class="mt-3 text-dark">
                        <p> Performance here</p>
                         </div>
                     </transition>
@@ -107,27 +107,24 @@
                             <path class="down" v-if="!showReviews" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     <transition name="slide-fade">
-                        <div v-show="showReviews" class="mt-3 offset-md-1 text-white">
-                           <p>Ratings</p> 
+                        <div v-show="showReviews" class="mt-3 offset-md-1 text-dark">
+                           <p>To give Rating for <b>{{subjects[selectedSub-1].name}}</b> , Plese fill the below form</p> 
                             <b-card-group deck class="col-md-12 col-lg-10">
                                 <b-card bg-variant="default" header="Leave your rating here" class="text-left text-dark ">
-                                    <form @submit.prevent="addRating" novalidate= "true">
+                                    <form @submit.prevent="addRating">
                                         <b-row>
-                                            <b-col class="col-4">
-                                                <p>Email:</p>
-                                             </b-col>
-                                             <b-col class="col-10">
-                                               <b-form-input v-model="email" name="email" :state="emailValidator" trim  type="email" id="email" placeholder="example@ksrmce.ac.in" required ></b-form-input>
-                                                             </b-col>
-                                                          </b-row>
-                                                          <b-row class="pt-3">
-                                                            <b-col class="col-md-4 col-lg-3 pt-2">
-                                                                 <p>Select:</p>
-                                                            </b-col>
-                                                            <b-col class="col-md-8 col-lg-1">
-                                                              <b-form-rating class="exportRating" type="rating" id="rating" no-border  required v-model="exportRating"></b-form-rating>
-                                                            </b-col>
-                                                        </b-row>
+                                            <b-col class="col-5 pt-3 ">Email:</b-col> 
+                                            <b-col class="offset-md-0">
+                                                <b-form-input class="col-sm-2"  v-model="email" name="email" :state="emailValidator" trim  type="email" id="email" placeholder="example@example.com" required ></b-form-input>
+                                            </b-col>
+                                       
+                                        </b-row>
+                                        <b-row class="mt-4">
+                                            <b-col class="col-5">Rating </b-col>
+                                            <div class="col-7">
+                                                <b-form-rating class="exportRating" type="rating" id="rating" no-border  required v-model="exportRating"></b-form-rating>
+                                            </div>
+                                        </b-row>
                                                            <b-row class="pt-4">
                                                             <b-col class="col-5">
                                                                  <p>Comment:</p>
@@ -157,7 +154,7 @@
                             <path class="down" v-if="!showContact" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     <transition name="slide-fade">
-                        <div v-show="showContact" class="mt-3 text-white">
+                        <div v-show="showContact" class="mt-3 text-dark">
                        <p> Contact here</p>
                         </div>
                     </transition>
@@ -261,10 +258,10 @@ export default {
     height: 20px;
 }
 .card{
-    background-color: #bcbcbc;
+    background-color: lightgray;
 }
 .Subrating{
-  background-color: #45536b !important;
+  background-color: darkgray !important;
 
 
 }
@@ -299,5 +296,7 @@ export default {
 .not-collapsed > .when-closed {
   display: none;
 }
-
+.inputRow{
+    width: 100px;
+}
 </style>

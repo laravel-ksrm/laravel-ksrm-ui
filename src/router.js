@@ -18,6 +18,7 @@ export default new Router({
     { path: '/batchmates', name:'batchmates',component:()=>import('./components/BatchMates.vue')},
     { path: '/results', name:'results',component:()=>import('./components/Results.vue')},
     { path: '/forgotPassword', name:'forgot',component:()=>import('./components/forgot.vue')},
+    {path:'/firstsemester',name:'firstsem',component:()=>import('./components/FirstSemester')}
 
   ]
   })

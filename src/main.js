@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'jquery/dist/jquery.min.js'
+import 'chart.js'
+import 'vue-chartjs'
 
 import router from './router'
 
@@ -16,7 +18,6 @@ import Particles from 'particles.vue'
 Vue.use(Particles);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
-
 
 
 import axios from 'axios'
