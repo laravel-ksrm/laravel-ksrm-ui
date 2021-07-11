@@ -185,7 +185,9 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
     },
   },
   components:{
-    RegulationTab, SchemeTab, SubTab,
+    'RegulationTab': RegulationTab, 
+    'SchemeTab': SchemeTab, 
+    'SubTab': SubTab,
   },
 }
 </script>

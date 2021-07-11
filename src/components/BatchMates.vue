@@ -10,7 +10,7 @@
               placeholder="Search with Regd.No, Name, Email or Phone "
             ></b-form-input>
 
-            <b-input-group-append>
+            <b-input-group-append class="clearButton">
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
           </b-input-group>
@@ -49,7 +49,7 @@ export default {
   },
   data()
    {
-     axios.get(`http://127.0.0.1:8000/api/students/1/1/`)
+     axios.get(`http://127.0.0.1:8000/api/students/1`)
     .then(response =>this.studentDetails = response.data)
   .catch(error => console.log(error));
     return {
@@ -60,8 +60,8 @@ export default {
         specialization_id:1,
         regulation_id:1,
         bordered: true,
-        joinedyear: 2019,
-        branch: null,
+        joinedyear: 2018,
+        branch: 'Civil Engineering',
         perPage: 9,
         currentPage: 1,
         fields: [
@@ -83,6 +83,11 @@ export default {
 }
 </script>
 <style>
+.clearButton{
+  justify-content: center;
+  margin-top: 8px;
+  margin-left: 5px;
+}
 #batchmates{
   padding-top: 2px;
   background-color: white;

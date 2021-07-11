@@ -7,7 +7,7 @@
       </h2>
     </div>
       <div class="form-container sign-in-container"  v-if="show">
-		<b-form  @submit="onSubmit" @reset="resetLoginForm">
+		<b-form  @submit.prevent="onSubmit" @reset="resetLoginForm">
 			<p  class="text-dark text-uppercase signin">Sign in</p>
 
 			<div class="social-container">
@@ -22,9 +22,9 @@
       >
         <b-form-input
           id="input-1"
-          v-model="signin.username"
+          v-model="signin.email"
           class="mb-0"
-          placeholder="Username or Reg No"
+          placeholder="Email-id"
           required
         ></b-form-input>
       </b-form-group>      
@@ -47,73 +47,7 @@
      
 		</b-form>    
 	</div>
-  <div id="signup" v-if="showSignup">
-    <div class="form-container sign-up-container">
-<b-form  @submit="onSubmitRegister">
-			<p  class="text-dark text-uppercase signup">Sign up</p>
-      <b-form-group
-        id="input-group-1"
-        label-for="input-1"
-        class="text-left mt-0"
-        description="Enter your full name"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="signup.name"
-          type="name"
-          class="mb-0"
-          placeholder="Enter Full name"
-          required
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="input-group-2"
-        label-for="input-2"
-        class="text-left"
-        description="We'll never share your email with anyone else."
-      >
-        <b-form-input
-          id="input-2"
-          v-model="signup.email"
-          type="email"
-          class="mb-0 mt-0"
-          placeholder="Email"
-          required
-        ></b-form-input>
-      </b-form-group>      
-      <b-form-group id="input-group-3" 
-      label-for="input-3"
-      class="text-left "
-            >
-        <b-form-input
-          id="input-3"
-          class="mb-0 mt-0"
-          v-model="signup.password"
-          placeholder="Password"
-          required
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group id="input-group-4" label-for="input-4">
-        <b-form-input
-          id="input-4"
-          class="mb-0 mt-0"
-          v-model="signup.confirmPassword"
-          placeholder="Confirm your Password"
-          required
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group v-if="signup.password != signup.confirmPassword"
-       id="input-group-4" label-for="input-4"
-       class="text-warning"
-       description="Both Password and confirm Password should match.">
-      </b-form-group>
-
-			<button>Sign In</button>
-      <p class="mt-2">Already an account?<a href="#login" @click="loginActive"> Sign In</a></p>
-     
-		</b-form>    
-    </div>
-  </div>
+  
   <div id="forgotPassword" v-if="forgotPassword">
     <div class="form-container sign-up-container">
 <b-form  @submit="onSubmitRegister">
@@ -157,15 +91,9 @@ export default {
     return{
       islogin: false,
 signin: {
-          username: '',
+          email: '',
           password: '',
           
-        },
-        signup:{
-          name: '',
-          email:'',
-          password: '',
-          confirmPassword: ''
         },
         show: true,
         showSignup: false,
@@ -182,31 +110,6 @@ signin: {
   },
 
   methods: {
-    onSubmitRegister(event){
-        event.preventDefault()
-        alert(JSON.stringify(this.signup))
-    },
-    resetLoginForm(){
-      this.username = '',
-      this.password = ''
-    },
-    signupActive(){
-      this.forgotPassword = false,
-      this.show = false,
-      this.showSignup = true,
-      this.resetLoginForm()
-    },
-    loginActive(){
-      this.forgotPassword = false,
-      this.show = true,
-      this.showSignup = false
-
-    },
-    forgotPasswordActive(){
-      this.show = false,
-      this.showSignup = false,
-      this.forgotPassword = true
-    },
     initParticlesJS () {
       /* eslint-disable */
       particlesJS('particles-js', {
@@ -320,10 +223,26 @@ signin: {
         'retina_detect': true
       })
     },
-    onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.signin))
-        
+    login() {
+        // get the redirect object
+        var redirect = this.$auth.redirect()
+        var app = this
+        this.$auth.login({
+          params: {
+            email: app.email,
+            password: app.password
+          },
+          success: function() {
+            // handle redirection
+            const redirectTo = redirect ? redirect.from.name : this.$auth.user().role === 2 ? 'admin.dashboard' : 'dashboard'
+            this.$router.push({name: redirectTo})
+          },
+          error: function() {
+            app.has_error = true
+          },
+          rememberMe: true,
+          fetchUser: true
+        })
       }
   }
 

@@ -1,23 +1,18 @@
 <template>
   <div class="hello">
-   <div v-if="isLogin">
-    <login/>
+   <p>This is home page</p>
     
-    </div>
-    <div v-else>
-      This is Home Page
-    </div>
 </div>
 </template>
 
 
 <script>
 
-import login from './LoginPage.vue'
+
 export default {
   name: 'HelloWorld',
   components:{
-    login
+    
   },
   props: {
     msg: String

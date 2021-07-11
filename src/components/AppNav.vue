@@ -72,22 +72,11 @@
         >Admin</router-link>
         
           </li>
-          <!--  A simple Dropdown -->
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-555" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Dropdown
-            </a>
-            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
-              <a class="dropdown-item waves-effect waves-light" href="#">Action</a>
-              <a class="dropdown-item waves-effect waves-light" href="#">Another action</a>
-              <a class="dropdown-item waves-effect waves-light" href="#">Something else here</a>
-            </div>
-          </li> -->
         </ul>
         <ul class="navbar-nav nav-flex-icons">
           <li class="nav-item">
             <router-link
             to=""
-            @click="noti_open"
           id="popover-target-1"
           class="nav-link "
           exact
@@ -95,7 +84,7 @@
         <b-icon icon="bell-fill" class="rounded-circle border border-light p-1" style="width:28px;height:25px;" variant="info"></b-icon><sup> {{ notificationCount}} </sup>
                 </router-link>
           </li>
-          <li class="nav-item avatar dropdown">
+          <li class="nav-item avatar dropdown" v-if="login">
             <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               
             <b-avatar button src="https://placekitten.com/300/300" style="width:30px;height:28px;"></b-avatar></a>
@@ -118,16 +107,39 @@
           </li>
             </div>
           </li>
+          <li class="nav-item" v-else>
+            <li class="nav-item">
+            <router-link
+          to="login"
+          class="nav-link"
+                    active-class="active"
+
+          exact
+        >Login</router-link>
+        
+          </li>
         </ul>
         
       </div>
-      <b-popover target="popover-target-1" variant="success" :show.sync="pop" triggers="click" placement="top">
+      <b-popover target="popover-target-1" variant="success" triggers="hover focus" placement="top">
     <template #title>Notifications</template>
-    <ul style="list-style-type:none" v-for="noti in notification" :key="noti.name">
-  <li>{{noti.name}}</li>
-  </ul>
-  <b-button @click="onClose">Close</b-button>
-  </b-popover>
+    <div  class="not_list" v-for="noti in notification" :key="noti.id">
+  <p class="not_link">
+    <router-link
+            :to="{ path: 'notifications',query:{id:noti.id}}"
+          exact
+        > {{noti.id}}.{{noti.name}} <hr class="mt-0 mb-0"></router-link> 
+        </p>
+  </div>
+  <div class="text-right not_link">
+    <router-link
+    
+            to='notifications'
+          class="text-danger"
+          exact
+        >To get More </router-link></div>
+    
+    </b-popover>
     </nav>
     <!--/.Navbar -->
     
@@ -136,29 +148,43 @@
 export default {
   data(){
     return{
-      pop: false,
-      notificationCount: 10,
+      login:false,
+      // pop: false,
+      notificationCount: 5,
       notification:[
-        { name:'1 st notification'},
-        { name:'2 nd notification'},
-        { name:'3 rd notification'},
-        { name:'4 th notification'},
-        { name:'5 th notification'}
+        { id:1, name:'B.Tech. I Sem (R20) End Exams Time Table'},
+        { id:2,name:'B.Tech. I Sem (R20) II Mid Exams Time Table'},
+        { id:3,name:'B.Tech. II Sem. (R15&R18), IV Sem (R15&R18), VI Sem (R15&R18), II-II, III-II & IV-II (R14) Supple. Exams of July/August 2021 Notification'},
+        { id:4,name:'M.Tech. I Sem (R18) Regular & Supple. Exams of July/August 2021 Notification'},
+        { id:5,name:'B.Tech. VIII Sem (R15) Regular & Supple. - July-2021 Exams Time Table'}
       ]
     }
   },
   methods:{
-    noti_open(){
-      this.pop = true
-    },
-    onClose() {
-        this.pop = false
-      }
+      
   }
 }
 </script>
 <style scoped>
-
+.not_list{
+  list-style-type:none;
+}
+.not_list h6{
+  cursor: pointer;
+}
+.not_list li{
+  margin-left: 0px;
+  margin-right: 0px;
+  /* padding-left: -50px; */
+  text-align: left;
+}
+.not_link a{
+  color: black;
+}
+.not_link a:hover{
+  color: black;
+  text-decoration: none;
+}
 ul li:hover div.dropdown{
   display: block;
 }

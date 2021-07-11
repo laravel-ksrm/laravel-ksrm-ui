@@ -1,8 +1,21 @@
 <template>
     <div class="subjects">
         <div class="row">
-        <div class=" text-left col-md-2 col-lg-1 text-   offset-lg-2 offset-md-1 pt-2">Subject: </div>
-        <b-form-select  class="col-md-5 col-lg-5 " v-if="subjects"  @change="getSyllabus($event)"  v-model="selectedSub" disabled-field="notEnabled" :options="subjects" value-field="id" text-field="name"><template v-slot:first><b-form-select-option :value= null disabled selected>Please select a Subject</b-form-select-option></template></b-form-select>
+        <div class="text-left col-md-2 col-lg-1   offset-lg-3 offset-md-1 pt-2">Subject: </div>
+        <div v-if="subjects" class="col-4">
+            <div>
+                <b-form-input type="text" class="form-control" @input="isTyping = true" v-model="searchQuery" placeholder="Type Subject Name or Code">
+            </b-form-input><div v-if="isLoading">
+                <b-icon icon="three-dots" animation="cylon" font-scale="2"></b-icon>
+            </div>
+            <b-dropdown class="bd" variant="outline-none" text="Search Results are..">
+<b-dropdown-item v-for="i in searchResult" :key="i" @click="select(i)"> {{i.name}} </b-dropdown-item>
+
+    </b-dropdown>
+            <!-- <b-button variant="outline-none" type="submit" @click.prevent="clearSearch"><b-icon class="cs" icon="x-circle"></b-icon></b-button> -->
+            </div>
+
+        </div>
         <div v-else class="  pt-2">Not Found</div>
         </div>
         
@@ -115,7 +128,7 @@
                                         <b-row>
                                             <b-col class="col-5 pt-3 ">Email:</b-col> 
                                             <b-col class="offset-md-0">
-                                                <b-form-input class="col-sm-2"  v-model="email" name="email" :state="emailValidator" trim  type="email" id="email" placeholder="example@example.com" required ></b-form-input>
+                                                <b-form-input class="col-sm-2"  v-model="email" name="email" trim  type="email" id="email" placeholder="example@example.com" required ></b-form-input>
                                             </b-col>
                                        
                                         </b-row>
@@ -170,13 +183,23 @@
 </template>
 <script>
 import axios from 'axios'
+import debounce from 'lodash/debounce';
 export default {
     created(){
-        axios.get(`http://127.0.0.1:8000/api/subject`)
+        axios.get(`http://127.0.0.1:8000/api/subjects`)
         .then(responce => this.subjects = responce.data)
         .catch(error => console.log(error));
     },
     methods:{
+        clearSearch() {
+      this.searchQuery = ''
+    },
+        searchUser: function(searchQuery) {this.isLoading = true;
+      axios.get('http://127.0.0.1:8000/api/subjects/' + searchQuery)
+        .then(response => {this.isLoading = false;
+          this.searchResult = response.data.data;
+        });
+    },
             addRating(context) {
       return new Promise((resolve, reject) => {
         axios.post('/subjects/' + this.selectedSub + '/ratings', {
@@ -199,7 +222,9 @@ export default {
     )},
         getSyllabus(event){
             this.selectedSub = event,
+            console.log(this.selectedSub)
             axios.get(`http://127.0.0.1:8000/api/subjects/${this.selectedSub}/syllabus`)
+            .then(response => console.log(response))
             .then(responce => this.syllabus = responce.data)
             .catch(error => console.log(error));
              axios.get(`http://127.0.0.1:8000/api/departments/${this.subjects[this.selectedSub].department_id}`)
@@ -214,8 +239,22 @@ export default {
       ,'Program' ,'selectedRegulation','regulations'
        ,'program_id','specializations','students','semesters'
     ],
+    watch: {
+    searchQuery: debounce(function() {
+      this.isTyping = false;
+    }, 1000),
+    isTyping: function(value) {
+      if (!value) {
+        this.searchUser(this.searchQuery);
+      }
+    }
+  },
     data(){
         return{
+            searchQuery: "",
+            isTyping: false,
+            searchResult: [],
+            isLoading: false,
             subjects:null,
             selectedSub: null,
             syllabus:null,
@@ -242,6 +281,26 @@ export default {
 }
 </script>
 <style>
+.sublist{
+    list-style-type: none;
+}
+.sublist li{
+    background-color: white;
+}
+.cs:focus {
+    outline: none !important;
+}
+.csb{
+    display: flex;
+    width: max-content;
+    outline: darkgray !important;
+}
+
+.b-dropdown-menu {
+  height: 256px;
+  overflow-y: scroll;
+  padding-top: 0;
+}
 .slide-fade-enter-active {
         transition: all .5s ease;
     }
