@@ -1,6 +1,5 @@
 <template>
-  <div id="container">
-    <p></p>
+  <div id="regulations">
       <div id="selection">
     <b-form-select
       v-model="selectedProgram"
@@ -14,7 +13,7 @@
   <b-form-select
     v-if="selectedProgram"
       v-model="selectedRegulation"
-      class="mb-3 col-5 selectreg"
+      class="mb-3 col-5 select"
       disabled-field="notEnabled"
       :options="UG"
       value-field="sname"
@@ -22,14 +21,14 @@
       @change="selectedRegulations($event)"
     ></b-form-select>
   </div>
-  <div v-if="selectedProgram=='CE'" class=" pl-3 pt-4 text-left">
-  <div v-if="selectedRegulation=='ABTD'"> <b>Department of Civil Engineering:</b><br>
+  <div v-if="selectedProgram=='CE'">
+  <div v-if="selectedRegulation=='ABTD'"> <b>Department of Civil Engineering</b><br>
     <p>Civil Engineering Department of KSRM College of Engineering is one of the five founding departments. The motto of the department is EXCEED (Excellence in Civil Engineering Education). The department provided its valuable consultancy services to Roads and Buildings (R & B) Department of Kadapa to improve Guvvalacheruvu Ghat section to enhance safety, comfort, reduce road accidents and travel time between Kadapa and Rayachoty. The civil engineering department is recognized as research center by JNTUA, Ananthapuramu. AICTE sponsored 13.55 Lakhs under MODROBS scheme to modernize and equip with latest digital equipment in Geotechnical Engineering Lab. The department conceived, planned, designed, developed and implemented the KSRM Library Information Project (KLIP).</p><br>
-    <b>Vision:</b><br>
+    <b>Vision</b><br>
     <p>The Department will be the recognized leader for excellence in Civil Engineering education that serve as vital source of leaders who are prepared to meet Nation’s current and future requirements for safe, efficient and sustainable infrastructure.
 
         To progress as a centre of excellence adapting itself to the rapid developments in the field of computer science by performing a high-impact research and teaching environment.</p><br>
-        <b>Mission:</b><br>
+        <b>Mission</b><br>
         <p>The mission of the department is to promote the disciplines of planning, design, construction, operation, maintenance and research in support of sustainable development. By providing a multidisciplinary focus for education, professional communication, and collaboration, the Department will enhance the professional knowledge and skills of its students so that they will improve the quality of life. The Department will bring together teachers, planners, industry representatives, citizen groups, developers, public officials and others dedicated to improving quality of life and fostering appropriate development programs at the local, regional, state and national levels.</p><br>
             <b>Programme Educational Objectives</b><br>
             <p>B.Tech-Civil Engineering Program Objectives.<br>
@@ -44,7 +43,7 @@
                 
                 To develop skills in lifelong learning and to introduce them to professional ethics and codes of professional practice.<br></p>
                 
-                <b>Programme Outcomes:</b><br>
+                <b>Programme Outcomes</b><br>
                 <p>Ability to apply knowledge of Mathematics & Sciences to solve complex problems in Engineering.<br>
                 Ability to identify, formulate and solve engineering problems
                 Ability to design electrical systems that meet the specified needs with appropriate considerations for public health safety and environmental considerations.<br>
@@ -57,7 +56,7 @@
                 Ability to communicate effectively in both verbal and written form.<br>
                 Apply knowledge of management and finance for effective project management.<br>
                 Ability to develop confidence for self-education and to understand the value of lifelong learning.</p><br>
-                <b>Programme Specific Outcomes:</b><br>
+                <b>Programme Specific Outcomes</b><br>
                 <p>The graduates in Civil Engineering will be able to<br>
 
                     PSO 1: Analyze, Design, Construct, Maintain and Operate infrastructural projects<br>
@@ -1045,14 +1044,8 @@ export default {
 }
 </script>
 <style>
-#container{
-  background-color: darkgray;
-  margin-left: 40px;
-  margin-right: 40px;
-  min-width: 400px;
-}
-.selectreg{
-  margin-left: 20px;
+#regulations{
+  background-color: white;
 }
 #selection{
   margin-left: 25px;
@@ -1082,7 +1075,9 @@ export default {
   margin-right: 20px;
   margin-left: 20px;
 }
-
+.select{
+  margin-left: 20px;
+}
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -1098,5 +1093,7 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
-
+p {
+  text-align: left;
+}
 </style>

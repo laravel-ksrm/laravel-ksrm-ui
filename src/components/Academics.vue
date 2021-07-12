@@ -83,7 +83,11 @@
        :specializations="specializations" :students="students" :semesters="semesters"/>
       </div>
       <div class="tab-pane fade" :class="{ 'active show': isActive('feedback') }" id="feedback">
-      feedback tab</div>
+      <FeedBackTab :regulations="regulations" :selectedProgram="selectedProgram"
+      :Program="Program" :selectedRegulation="selectedRegulation"
+       :program_id='program_id'  :regulation="regulation" 
+       :programLevel="programLevel" :program_level="program_level"
+       :specializations="specializations" :students="students" :semesters="semesters"/></div>
     </div>
     </div>
     
@@ -97,6 +101,7 @@ import axios from 'axios'
 import RegulationTab from './RegulationTab'
 import SchemeTab from './SchemeTab'
 import SubTab from './SubTab'
+import FeedBackTab from './FeedBackTab.vue'
 export default {
   created(){
 axios.get('http://127.0.0.1:8000/api/program_levels/')
@@ -188,6 +193,7 @@ axios.get('http://127.0.0.1:8000/api/program_levels/')
     'RegulationTab': RegulationTab, 
     'SchemeTab': SchemeTab, 
     'SubTab': SubTab,
+    'FeedBackTab': FeedBackTab,
   },
 }
 </script>

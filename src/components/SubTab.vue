@@ -8,10 +8,27 @@
             </b-form-input><div v-if="isLoading">
                 <b-icon icon="three-dots" animation="cylon" font-scale="2"></b-icon>
             </div>
-            <b-dropdown class="bd" variant="outline-none" text="Search Results are..">
+            <div>
+                <!-- {{searchResult}} -->
+                <!-- {{selectedSub}} -->
+            </div>
+            <b-form-select
+      :options="searchResult"
+      value-field="id"
+      text-field="name"
+      v-model="selectedSub"
+       @change="getSyllabus($event)"
+      disabled-field="Enabled"
+    >
+    <template v-slot:first>
+        <b-form-select-option :value= null disabled selected>Please select a Program</b-form-select-option>
+      </template></b-form-select>
+            <!-- </div> -->
+            
+            <!-- <b-dropdown class="bd" variant="outline-none" text="Search Results are..">
 <b-dropdown-item v-for="i in searchResult" :key="i" @click="select(i)"> {{i.name}} </b-dropdown-item>
 
-    </b-dropdown>
+    </b-dropdown> -->
             <!-- <b-button variant="outline-none" type="submit" @click.prevent="clearSearch"><b-icon class="cs" icon="x-circle"></b-icon></b-button> -->
             </div>
 
@@ -121,31 +138,31 @@
                         </svg>
                     <transition name="slide-fade">
                         <div v-show="showReviews" class="mt-3 offset-md-1 text-dark">
-                           <p>To give Rating for <b>{{subjects[selectedSub-1].name}}</b> , Plese fill the below form</p> 
-                            <b-card-group deck class="col-md-12 col-lg-10">
-                                <b-card bg-variant="default" header="Leave your rating here" class="text-left text-dark ">
-                                    <form @submit.prevent="addRating">
-                                        <b-row>
-                                            <b-col class="col-5 pt-3 ">Email:</b-col> 
-                                            <b-col class="offset-md-0">
-                                                <b-form-input class="col-sm-2"  v-model="email" name="email" trim  type="email" id="email" placeholder="example@example.com" required ></b-form-input>
-                                            </b-col>
-                                       
-                                        </b-row>
-                                        <b-row class="mt-4">
-                                            <b-col class="col-5">Rating </b-col>
-                                            <div class="col-7">
-                                                <b-form-rating class="exportRating" type="rating" id="rating" no-border  required v-model="exportRating"></b-form-rating>
+                           <p>To give Review for <b>{{subjects[selectedSub-1].name}}</b> , Plese fill the below form</p> 
+                            <b-card-group deck class="Fcard col-md-12 col-lg-11">
+                                <b-card bg-variant="default" header="Leave your FeedBack here" class="text-left text-dark ">
+                                    <form @submit.prevent="addFeedBack" class="text-left">
+                                        <div class="row">
+                                            <div class="col-lg-4 pt-3">Email:</div> 
+                                            <div class="col-lg-4">
+                                                <b-form-input v-model="email" name="email" trim  type="email" id="email" placeholder="example@example.com" required ></b-form-input>
                                             </div>
-                                        </b-row>
-                                                           <b-row class="pt-4">
-                                                            <b-col class="col-5">
-                                                                 <p>Comment:</p>
-                                                            </b-col>
-                                                            <b-col class="col-10">
-                                                              <b-form-textarea type="comment" id="comment" placeholder="Your Comment" required ></b-form-textarea>
-                                                            </b-col>
-                                                        </b-row>
+                                       
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-lg-4 pt-3">Rating:</div> 
+                                            <div class="col-lg-4">
+                                                <b-form-rating id="rating-md-no-border" class="Frating" trim type="rating" no-border  required v-model="exportRating"></b-form-rating>
+                                            </div>
+                                       
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-lg-4 pt-3">Comments:</div> 
+                                            <div class="col-lg-4">
+                                                <b-form-textarea type="comment" id="comment" class="Fcomment" placeholder="Your Comment" required ></b-form-textarea>
+                                            </div>
+                                       
+                                        </div>
                                                  <div>
                                                    <b-button class="mt-4" type="submit">Submit</b-button>
                                                  </div></form>
@@ -224,7 +241,7 @@ export default {
             this.selectedSub = event,
             console.log(this.selectedSub)
             axios.get(`http://127.0.0.1:8000/api/subjects/${this.selectedSub}/syllabus`)
-            .then(response => console.log(response))
+            // .then(response => console.log(response))
             .then(responce => this.syllabus = responce.data)
             .catch(error => console.log(error));
              axios.get(`http://127.0.0.1:8000/api/departments/${this.subjects[this.selectedSub].department_id}`)
@@ -281,6 +298,15 @@ export default {
 }
 </script>
 <style>
+.Frating{
+    width: 450px;
+}
+.Fcomment{
+    width: 350px;
+}
+.Fcard{
+    align-content: center;
+}
 .sublist{
     list-style-type: none;
 }
